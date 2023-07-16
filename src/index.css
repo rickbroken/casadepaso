@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Lexend', sans-serif;
+}
+body {
+  background-color:#D9D9D9;
+}
