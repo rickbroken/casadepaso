@@ -44,7 +44,7 @@ const Procesar = () => {
         H_priNombre: "DAIRON",
         I_segNombre: "RICARDO",
         J_observaciones: "Se trae por motivos de consulta externa",
-        Q_fechaSalida: '',
+        Q_fechaSalida: '08/07/2023',
         R_estadoUsuario: false,
         Z_id: "ad2s841"
       }
