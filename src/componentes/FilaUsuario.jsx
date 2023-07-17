@@ -4,7 +4,7 @@ import EstadoAlojamiento from '../elementos/EstadoAlojamiento';
 import BtnAgregar from '../elementos/BtnAgregar';
 import AccionAgregar from './AccionAgregar';
 
-const FilaUsuario = ({id,tp,documento,priApellido,segApellido,priNombre,segNombre,fechaIngreso,fechaSalida,estadoUsuario}) => {
+const FilaUsuario = ({id,tp,documento,priApellido,segApellido,priNombre,segNombre,fechaIngreso,fechaSalida,estadoUsuario,acompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante}) => {
   const [mostrarAccionAgregar, setMostrarAccionAgregar] = useState(false);
 
   return (
@@ -13,15 +13,17 @@ const FilaUsuario = ({id,tp,documento,priApellido,segApellido,priNombre,segNombr
         <AccionAgregar
           setMostrarAccionAgregar={setMostrarAccionAgregar}
           id={id}
-          tp={tp}
-          documento={documento}
           priApellido={priApellido}
           segApellido={segApellido}
           priNombre={priNombre}
           segNombre={segNombre}
-          fechaIngreso={fechaIngreso}
           fechaSalida={fechaSalida}
           estadoUsuario={estadoUsuario}
+          acompanante={acompanante}
+          priApellidoAcompanante={priApellidoAcompanante}
+          segApellidoAcompanante={segApellidoAcompanante}
+          priNombreAcompanante={priNombreAcompanante}
+          segNombreAcompanante={segNombreAcompanante}
         />
       }
 

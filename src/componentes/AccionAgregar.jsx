@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 
 
-const AccionAgregar = ({setMostrarAccionAgregar,id,priApellido,segApellido,priNombre,segNombre,fechaIngreso,estadoUsuario}) => {
+const AccionAgregar = ({setMostrarAccionAgregar,id,priApellido,segApellido,priNombre,segNombre,estadoUsuario,acompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante}) => {
 
   const [desayuno, setDesayuno] = useState(0);
   const [almuerzo, setAlmuerzo] = useState(0);
@@ -15,7 +15,6 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,priApellido,segApellido,priNo
 
 
 
-  console.log(almuerzoAcompanante);
 
   const handleFinalizarEstadia = () => {
     //tenemos que actualizar el doc en firebase con el estado de usuario finalizado
@@ -49,26 +48,29 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,priApellido,segApellido,priNo
           </div>
         </div>
 
-        <div className='px-4 py-2 w-full flex flex-col items-start'>
-          <p>Agregar alimentos a acompañante: <span className='font-[400]'>{`${priApellido} ${segApellido} ${priNombre} ${segNombre}`}</span></p>
+        {acompanante &&
+          <div className='px-4 py-2 w-full flex flex-col items-start'>
+            <p>Agregar alimentos a acompañante: <span className='font-[400]'>{`${priApellidoAcompanante} ${segApellidoAcompanante} ${priNombreAcompanante} ${segNombreAcompanante}`}</span></p>
 
-          <div className='w-8/12 flex justify-between mx-auto'>
-            <div className='flex cursor-pointer' onClick={()=>desayunoAcompanante === 0 ? setDesayunoAcompanante(1) : setDesayunoAcompanante(0)}>
-              <Icon icon={`material-symbols:check-box-outline${desayunoAcompanante === 0 ? '-blank' : ''}`} color="#095c51" />
-              <span className='mx-1 select-none'>Desayuno</span>
-            </div>
+            <div className='w-8/12 flex justify-between mx-auto'>
+              <div className='flex cursor-pointer' onClick={()=>desayunoAcompanante === 0 ? setDesayunoAcompanante(1) : setDesayunoAcompanante(0)}>
+                <Icon icon={`material-symbols:check-box-outline${desayunoAcompanante === 0 ? '-blank' : ''}`} color="#095c51" />
+                <span className='mx-1 select-none'>Desayuno</span>
+              </div>
 
-            <div className='flex cursor-pointer' onClick={()=>almuerzoAcompanante === 0 ? setAlmuerzoAcompanante(1) : setAlmuerzoAcompanante(0)}>
-              <Icon icon={`material-symbols:check-box-outline${almuerzoAcompanante === 0 ? '-blank' : ''}`} color="#095c51" />
-              <span className='mx-1 select-none'>Almuerzo</span>
-            </div>
+              <div className='flex cursor-pointer' onClick={()=>almuerzoAcompanante === 0 ? setAlmuerzoAcompanante(1) : setAlmuerzoAcompanante(0)}>
+                <Icon icon={`material-symbols:check-box-outline${almuerzoAcompanante === 0 ? '-blank' : ''}`} color="#095c51" />
+                <span className='mx-1 select-none'>Almuerzo</span>
+              </div>
 
-            <div className='flex cursor-pointer' onClick={()=>cenaAcompanante === 0 ? setCenaAcompanante(1) : setCenaAcompanante(0)}>
-              <Icon icon={`material-symbols:check-box-outline${cenaAcompanante === 0 ? '-blank' : ''}`} color="#095c51" />
-              <span className='mx-1 select-none'>Cena</span>
+              <div className='flex cursor-pointer' onClick={()=>cenaAcompanante === 0 ? setCenaAcompanante(1) : setCenaAcompanante(0)}>
+                <Icon icon={`material-symbols:check-box-outline${cenaAcompanante === 0 ? '-blank' : ''}`} color="#095c51" />
+                <span className='mx-1 select-none'>Cena</span>
+              </div>
             </div>
           </div>
-        </div>
+        }
+
 
       <button onClick={handleFinalizarEstadia}>Finalizar Estadia</button>
       </td>

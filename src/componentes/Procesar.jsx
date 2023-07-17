@@ -6,49 +6,49 @@ const Procesar = () => {
 
 
   //Simulamos que resivimos los datos firebase
-  const usuarios = [
-    {
-      A_tp: "RC",
-      B_documento: "1006690431",
-      C_motivoAlojamiento: "Motivo 2",
-      D_fechaIngreso: "2023-07-15",
-      E_acompanante: true,
-      F_priApellido: "QUEBRADA",
-      G_segApellido: "RODRIGUEZ",
-      H_priNombre: "DAIRON",
-      I_segNombre: "RICARDO",
-      J_observaciones: "Se trae por motivos de consulta externa",
-      K_tpAcompanante: "CC",
-      L_documentoAcompanante: "1050918138",
-      M_priApellidoAcompanante: "PEPITA",
-      N_segApellidoAcompanante: "PEREZ",
-      O_priNombreAcompanante: "JULIETA",
-      P_segNombreAcompanante: "SOFIA",
-      Q_fechaSalida: '',
-      R_estadoUsuario: true,
-      Z_id: "4c86c92"
-    },
-    {
-      A_tp: "RC",
-      B_documento: "1006690431",
-      C_motivoAlojamiento: "Motivo 2",
-      D_fechaIngreso: "2023-07-06",
-      E_acompanante: false,
-      F_priApellido: "QUEBRADA",
-      G_segApellido: "RODRIGUEZ",
-      H_priNombre: "DAIRON",
-      I_segNombre: "RICARDO",
-      J_observaciones: "Se trae por motivos de consulta externa",
-      Q_fechaSalida: '',
-      R_estadoUsuario: false,
-      Z_id: "ad2s841"
-    }
-  ];
+  const [usuarios,setUsuarios] = useState([]);
 
 
   //Funcion cuando se da click en btn buscar
   const handleBuscar = () => {
-
+    setUsuarios([
+      {
+        A_tp: "RC",
+        B_documento: "1006690431",
+        C_motivoAlojamiento: "Motivo 2",
+        D_fechaIngreso: "2023-07-15",
+        E_acompanante: true,
+        F_priApellido: "QUEBRADA",
+        G_segApellido: "RODRIGUEZ",
+        H_priNombre: "DAIRON",
+        I_segNombre: "RICARDO",
+        J_observaciones: "Se trae por motivos de consulta externa",
+        K_tpAcompanante: "CC",
+        L_documentoAcompanante: "1050918138",
+        M_priApellidoAcompanante: "PEPITA",
+        N_segApellidoAcompanante: "PEREZ",
+        O_priNombreAcompanante: "JULIETA",
+        P_segNombreAcompanante: "SOFIA",
+        Q_fechaSalida: '',
+        R_estadoUsuario: true,
+        Z_id: "4c86c92"
+      },
+      {
+        A_tp: "RC",
+        B_documento: "1006690431",
+        C_motivoAlojamiento: "Motivo 2",
+        D_fechaIngreso: "2023-07-06",
+        E_acompanante: false,
+        F_priApellido: "QUEBRADA",
+        G_segApellido: "RODRIGUEZ",
+        H_priNombre: "DAIRON",
+        I_segNombre: "RICARDO",
+        J_observaciones: "Se trae por motivos de consulta externa",
+        Q_fechaSalida: '',
+        R_estadoUsuario: false,
+        Z_id: "ad2s841"
+      }
+    ]);
   }
 
   return (
@@ -116,6 +116,11 @@ const Procesar = () => {
                 fechaIngreso={usuario.D_fechaIngreso}
                 fechaSalida={usuario.Q_fechaSalida}
                 estadoUsuario={usuario.R_estadoUsuario}
+                acompanante={usuario.E_acompanante}
+                priApellidoAcompanante={usuario.M_priApellidoAcompanante}
+                segApellidoAcompanante={usuario.N_segApellidoAcompanante}
+                priNombreAcompanante={usuario.O_priNombreAcompanante}
+                segNombreAcompanante={usuario.P_segNombreAcompanante}
             />
             ))
           }
