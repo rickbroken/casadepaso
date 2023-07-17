@@ -24,22 +24,39 @@ const Ingresar = () => {
 
   
   useEffect(()=>{
-    setUsuario((prev)=>({
-      ...prev,
-      A_tp: tp,
-      B_documento: documento,
-      C_motivoAlojamiento: motivoAlojamiento,
-      D_fechaIngreso: fechaIngreso,
-      E_acompanante: acompanante,
-      F_priApellido: priApellido,
-      G_segApellido: segApellido,
-      H_priNombre: priNombre,
-      I_segNombre: segNombre,
-      J_observaciones: observaciones
-    }));
+    if(acompanante){
+      setUsuario((prev)=>({
+        ...prev,
+        A_tp: tp,
+        B_documento: documento,
+        C_motivoAlojamiento: motivoAlojamiento,
+        D_fechaIngreso: fechaIngreso,
+        E_acompanante: acompanante,
+        F_priApellido: priApellido,
+        G_segApellido: segApellido,
+        H_priNombre: priNombre,
+        I_segNombre: segNombre,
+        J_observaciones: observaciones
+      }));
+    } else {
+      setUsuario({
+        A_tp: tp,
+        B_documento: documento,
+        C_motivoAlojamiento: motivoAlojamiento,
+        D_fechaIngreso: fechaIngreso,
+        E_acompanante: acompanante,
+        F_priApellido: priApellido,
+        G_segApellido: segApellido,
+        H_priNombre: priNombre,
+        I_segNombre: segNombre,
+        J_observaciones: observaciones
+      });
+    }
   },[tp,documento,motivoAlojamiento,fechaIngreso,acompanante,priApellido,segApellido,priNombre,segNombre,observaciones])
   
-  console.log(usuario);
+  const handleSubmit = () => {
+    console.log(usuario);
+  }
 
   return (
     <div className='bg-white text-md w-[70%] mx-auto my-6 rounded-lg'>
@@ -122,6 +139,8 @@ const Ingresar = () => {
         <div className='w-full flex justify-center my-2'>
           <button 
             className='bg-primario transition duration-300 text-white py-2 px-16 rounded-md hover:bg-[#143a28]'
+            onClick={handleSubmit}
+            type='button'
           >
             Agregar Registro
           </button>
