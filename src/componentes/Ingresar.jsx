@@ -5,6 +5,7 @@ import MotivoAlojamiento from '../elementos/MotivoAlojamiento';
 import DatosAcompante from './DatosAcompante';
 import InputCheck from '../elementos/InputCheck'
 import { ContextoUsuarios } from '../contextos/ContextoUsuarios';
+import { uid } from 'uid';
 
 
 
@@ -36,7 +37,8 @@ const Ingresar = () => {
         G_segApellido: segApellido,
         H_priNombre: priNombre,
         I_segNombre: segNombre,
-        J_observaciones: observaciones
+        J_observaciones: observaciones,
+        Z_id: uid(7)
       }));
     } else {
       setUsuario({
@@ -49,7 +51,8 @@ const Ingresar = () => {
         G_segApellido: segApellido,
         H_priNombre: priNombre,
         I_segNombre: segNombre,
-        J_observaciones: observaciones
+        J_observaciones: observaciones,
+        Z_id: uid(7)
       });
     }
   },[tp,documento,motivoAlojamiento,fechaIngreso,acompanante,priApellido,segApellido,priNombre,segNombre,observaciones])
@@ -59,7 +62,7 @@ const Ingresar = () => {
   }
 
   return (
-    <div className='bg-white text-md w-[70%] mx-auto my-6 rounded-lg'>
+    <div className='bg-white text-md max-w-[949px] w-12/12 mx-auto my-6 rounded-lg'>
       <form className='w-11/12 mx-auto py-5'>
         <p className='text-center text-2xl font-[500]'>DATOS DEL USUARIO</p>
 
@@ -87,7 +90,7 @@ const Ingresar = () => {
             <input value={fechaIngreso} onChange={(e)=>setFechaIngreso(e.target.value)} type="date" className='border-inputs py-2 px-2 border rounded-md' />
           </div>
           <div className='flex flex-col items-center'>
-            <p>¿Requiere Acompañante?</p>
+            <p>¿Acompañante?</p>
             <InputCheck 
               setAcompanante={setAcompanante}
               acompanante={acompanante}

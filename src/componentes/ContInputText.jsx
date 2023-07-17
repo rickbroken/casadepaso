@@ -3,7 +3,7 @@ import InputText from '../elementos/inputText';
 
 const ContInputText = ({onChange, value, name, placeholder}) => {
   return (
-    <div>
+    <div className='pr-2'>
       <p>{name}</p>
       <InputText
         onChange={onChange}

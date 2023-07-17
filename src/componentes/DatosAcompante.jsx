@@ -32,7 +32,7 @@ const DatosAcompante = () => {
       <p className='text-center text-2xl font-[500]'>DATOS DEL ACOMPAÑANTE</p>
 
       <div className='flex my-2'>
-        <div>
+        <div className='mr-2'>
           <p>TP Doc:</p>
           <select value={tp} onChange={(e)=>setTp(e.target.value)} className='border-inputs py-2 px-2 border rounded-md'>
             <TpDocumentos />
