@@ -38,6 +38,8 @@ const Ingresar = () => {
         H_priNombre: priNombre,
         I_segNombre: segNombre,
         J_observaciones: observaciones,
+        Q_fechaSalida: '',
+        R_estadoUsuario: true,
         Z_id: uid(7)
       }));
     } else {
@@ -52,6 +54,8 @@ const Ingresar = () => {
         H_priNombre: priNombre,
         I_segNombre: segNombre,
         J_observaciones: observaciones,
+        Q_fechaSalida: '',
+        R_estadoUsuario: true,
         Z_id: uid(7)
       });
     }

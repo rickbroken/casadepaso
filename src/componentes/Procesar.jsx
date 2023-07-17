@@ -5,34 +5,48 @@ import FilaUsuario from './FilaUsuario';
 const Procesar = () => {
 
 
+  //Simulamos que resivimos los datos firebase
   const usuarios = [
     {
-      id: '22s5a15',
-      tp: 'CC',
-      documento: '1006690431',
-      priApellido: 'AMAYA',
-      segApellido: 'CHIPIAJE',
-      priNombre: 'FABIAN',
-      segNombre: 'ESTEBAN',
-      fechaIngreso: '15/02/2023',
-      fechaSalida: false,
-      estadoUsuario: true
+      A_tp: "RC",
+      B_documento: "1006690431",
+      C_motivoAlojamiento: "Motivo 2",
+      D_fechaIngreso: "2023-07-15",
+      E_acompanante: true,
+      F_priApellido: "QUEBRADA",
+      G_segApellido: "RODRIGUEZ",
+      H_priNombre: "DAIRON",
+      I_segNombre: "RICARDO",
+      J_observaciones: "Se trae por motivos de consulta externa",
+      K_tpAcompanante: "CC",
+      L_documentoAcompanante: "1050918138",
+      M_priApellidoAcompanante: "PEPITA",
+      N_segApellidoAcompanante: "PEREZ",
+      O_priNombreAcompanante: "JULIETA",
+      P_segNombreAcompanante: "SOFIA",
+      Q_fechaSalida: '',
+      R_estadoUsuario: true,
+      Z_id: "4c86c92"
     },
     {
-      id: '5a1q8e1',
-      tp: 'TI',
-      documento: '1554887891',
-      priApellido: 'GAITAN',
-      segApellido: 'ORTIZ',
-      priNombre: 'NATALIA',
-      segNombre: 'YULI',
-      fechaIngreso: '05/06/2023',
-      fechaSalida: '08/06/2023',
-      estadoUsuario: false
+      A_tp: "RC",
+      B_documento: "1006690431",
+      C_motivoAlojamiento: "Motivo 2",
+      D_fechaIngreso: "2023-07-06",
+      E_acompanante: false,
+      F_priApellido: "QUEBRADA",
+      G_segApellido: "RODRIGUEZ",
+      H_priNombre: "DAIRON",
+      I_segNombre: "RICARDO",
+      J_observaciones: "Se trae por motivos de consulta externa",
+      Q_fechaSalida: '',
+      R_estadoUsuario: false,
+      Z_id: "ad2s841"
     }
   ];
 
 
+  //Funcion cuando se da click en btn buscar
   const handleBuscar = () => {
 
   }
@@ -91,17 +105,17 @@ const Procesar = () => {
           {usuarios &&
             usuarios.map((usuario)=>(
             <FilaUsuario 
-                key={usuario.id}
-                id={usuario.id}
-                tp={usuario.tp}
-                documento={usuario.documento}
-                priApellido={usuario.priApellido}
-                segApellido={usuario.segApellido}
-                priNombre={usuario.priNombre}
-                segNombre={usuario.segNombre}
-                fechaIngreso={usuario.fechaIngreso}
-                fechaSalida={usuario.fechaSalida}
-                estadoUsuario={usuario.estadoUsuario}
+                key={usuario.Z_id}
+                id={usuario.Z_id}
+                tp={usuario.A_tp}
+                documento={usuario.B_documento}
+                priApellido={usuario.F_priApellido}
+                segApellido={usuario.G_segApellido}
+                priNombre={usuario.H_priNombre}
+                segNombre={usuario.I_segNombre}
+                fechaIngreso={usuario.D_fechaIngreso}
+                fechaSalida={usuario.Q_fechaSalida}
+                estadoUsuario={usuario.R_estadoUsuario}
             />
             ))
           }

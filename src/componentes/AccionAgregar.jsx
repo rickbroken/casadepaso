@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 
 
-const AccionAgregar = ({setMostrarAccionAgregar,id,tp,documento,priApellido,segApellido,priNombre,segNombre,fechaIngreso,fechaSalida,estadoUsuario}) => {
+const AccionAgregar = ({setMostrarAccionAgregar,id,priApellido,segApellido,priNombre,segNombre,fechaIngreso,estadoUsuario}) => {
 
   const [desayuno, setDesayuno] = useState(0);
   const [almuerzo, setAlmuerzo] = useState(0);
@@ -15,13 +15,13 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,tp,documento,priApellido,segA
 
 
 
-  console.log(id);
+  console.log(almuerzoAcompanante);
 
   const handleFinalizarEstadia = () => {
     //tenemos que actualizar el doc en firebase con el estado de usuario finalizado
   }
 
-
+  //A pesar que no es una fila de la tabla, se agrega como fila y se estiliza para mostrar card de agregar para que la estructura de html de table no quede con error
   return (
     <tr onClick={(e)=> e.target.id === 'fondo' && setMostrarAccionAgregar(false)} id='fondo' className='fixed w-full h-screen top-0 left-0 bg-[#0000003d] flex justify-center items-center'>
 
