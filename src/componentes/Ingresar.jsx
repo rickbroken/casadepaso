@@ -1,12 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import TpDocumentos from '../elementos/TpDocumentos';
 import ContInputText from './ContInputText';
 import MotivoAlojamiento from '../elementos/MotivoAlojamiento';
 import DatosAcompante from './DatosAcompante';
 import InputCheck from '../elementos/InputCheck'
+import { ContextoUsuarios } from '../contextos/ContextoUsuarios';
+
+
 
 const Ingresar = () => {
+  const {usuario, setUsuario} =  useContext(ContextoUsuarios);
+  
+  const [tp, setTp] = useState('');
+  const [documento, setDocumento] = useState('');
+  const [motivoAlojamiento, setMotivoAlojamiento] = useState('');
+  const [fechaIngreso, setFechaIngreso] = useState('');
   const [acompanante, setAcompanante] = useState(true);
+  const [priApellido, setPriApellido] = useState('');
+  const [segApellido, setSegApellido] = useState('');
+  const [priNombre, setPriNombre] = useState('');
+  const [segNombre, setSegNombre] = useState('');
+  const [observaciones, setObservaciones] = useState('');
+
+  
+  useEffect(()=>{
+    setUsuario((prev)=>({
+      ...prev,
+      A_tp: tp,
+      B_documento: documento,
+      C_motivoAlojamiento: motivoAlojamiento,
+      D_fechaIngreso: fechaIngreso,
+      E_acompanante: acompanante,
+      F_priApellido: priApellido,
+      G_segApellido: segApellido,
+      H_priNombre: priNombre,
+      I_segNombre: segNombre,
+      J_observaciones: observaciones
+    }));
+  },[tp,documento,motivoAlojamiento,fechaIngreso,acompanante,priApellido,segApellido,priNombre,segNombre,observaciones])
+  
+  console.log(usuario);
 
   return (
     <div className='bg-white text-md w-[70%] mx-auto my-6 rounded-lg'>
@@ -16,25 +49,25 @@ const Ingresar = () => {
         <div className='flex justify-between my-4'>
           <div>
             <p>TP Doc:</p>
-            <select className='border-inputs py-2 px-2 border rounded-md'>
+            <select value={tp} onChange={(e)=>setTp(e.target.value)} className='border-inputs py-2 px-2 border rounded-md'>
               <TpDocumentos />
             </select>
           </div>
           <ContInputText
             name='Documento del usuario:'
-            onChange={(e)=>console.log(e.target.value)}
-            value=''
+            onChange={(e)=>setDocumento(e.target.value)}
+            value={documento}
             placeholder='Escribre el documento'
           />
           <div>
             <p>Motivo del alojamiento:</p>
-            <select className='border-inputs py-2 px-2 border rounded-md w-full'>
+            <select value={motivoAlojamiento} onChange={(e)=>setMotivoAlojamiento(e.target.value)} className='border-inputs py-2 px-2 border rounded-md w-full'>
               <MotivoAlojamiento />
             </select>
           </div>
           <div>
             <p>Fecha de ingreso</p>
-            <input type="date" className='border-inputs py-2 px-2 border rounded-md' />
+            <input value={fechaIngreso} onChange={(e)=>setFechaIngreso(e.target.value)} type="date" className='border-inputs py-2 px-2 border rounded-md' />
           </div>
           <div className='flex flex-col items-center'>
             <p>¿Requiere Acompañante?</p>
@@ -48,26 +81,26 @@ const Ingresar = () => {
         <div className='flex justify-between my-4'>
           <ContInputText
             name='Primer Apellido:'
-            onChange={(e)=>console.log(e.target.value)}
-            value=''
+            onChange={(e)=>setPriApellido(e.target.value.toUpperCase())}
+            value={priApellido}
             placeholder='Escribre el apellido'
           />
           <ContInputText
             name='Segundo Apellido:'
-            onChange={(e)=>console.log(e.target.value)}
-            value=''
+            onChange={(e)=>setSegApellido(e.target.value.toUpperCase())}
+            value={segApellido}
             placeholder='Escribre el apellido'
           />
           <ContInputText
             name='Primer Nombre:'
-            onChange={(e)=>console.log(e.target.value)}
-            value=''
+            onChange={(e)=>setPriNombre(e.target.value.toUpperCase())}
+            value={priNombre}
             placeholder='Escribre el nombre'
           />
           <ContInputText
             name='Segundo Nombre:'
-            onChange={(e)=>console.log(e.target.value)}
-            value=''
+            onChange={(e)=>setSegNombre(e.target.value.toUpperCase())}
+            value={segNombre}
             placeholder='Escribre el nombre'
           />
         </div>
@@ -79,10 +112,11 @@ const Ingresar = () => {
         <div className='w-full'>
           <p className='my-1'>Observaciones:</p>
           <textarea 
-            placeholder='Escriba las observaciones' 
-            className='border-inputs py-2 px-2 border rounded-md min-w-full max-w-full min-h-[120px] max-h-[200px]'>
-
-          </textarea>
+            placeholder='Escriba las observaciones'
+            value={observaciones}
+            onChange={(e)=>setObservaciones(e.target.value)}
+            className='border-inputs py-2 px-2 border rounded-md min-w-full max-w-full min-h-[120px] max-h-[200px] outline-none'>
+            </textarea>
         </div>
 
         <div className='w-full flex justify-center my-2'>
