@@ -4,15 +4,17 @@ import EstadoAlojamiento from '../elementos/EstadoAlojamiento';
 import BtnAgregar from '../elementos/BtnAgregar';
 import AccionAgregar from './AccionAgregar';
 
-const FilaUsuario = ({id,tp,documento,priApellido,segApellido,priNombre,segNombre,fechaIngreso,fechaSalida,estadoUsuario,acompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante}) => {
+const FilaUsuario = ({id,idDocFirebase,tp,documento,priApellido,segApellido,priNombre,segNombre,fechaIngreso,fechaSalida,estadoUsuario,acompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante}) => {
   const [mostrarAccionAgregar, setMostrarAccionAgregar] = useState(false);
 
+  //console.log(idDocFirebase);
   return (
     <>
       {mostrarAccionAgregar &&
         <AccionAgregar
           setMostrarAccionAgregar={setMostrarAccionAgregar}
           id={id}
+          idDocFirebase={idDocFirebase}
           priApellido={priApellido}
           segApellido={segApellido}
           priNombre={priNombre}

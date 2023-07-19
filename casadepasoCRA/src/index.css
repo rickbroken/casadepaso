@@ -44,7 +44,8 @@ table tbody tr svg {
   cursor: pointer;
 }
 table tbody tr td {
-  border-left: 1px solid #5b4dd534;
+  border-right: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
   font-size: 0.8rem;
 }
 table tbody tr:last-of-type {

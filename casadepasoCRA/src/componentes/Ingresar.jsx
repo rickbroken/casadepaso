@@ -6,6 +6,8 @@ import DatosAcompante from './DatosAcompante';
 import InputCheck from '../elementos/InputCheck'
 import { ContextoUsuarios } from '../contextos/ContextoUsuarios';
 import { uid } from 'uid';
+import agregarRegistro from '../firebase/agregarRegistro';
+import { format } from 'date-fns';
 
 
 
@@ -15,7 +17,7 @@ const Ingresar = () => {
   const [tp, setTp] = useState('');
   const [documento, setDocumento] = useState('');
   const [motivoAlojamiento, setMotivoAlojamiento] = useState('');
-  const [fechaIngreso, setFechaIngreso] = useState('');
+  const [fechaIngreso, setFechaIngreso] = useState(format(new Date(), 'dd/MM/yyyy'));
   const [acompanante, setAcompanante] = useState(true);
   const [priApellido, setPriApellido] = useState('');
   const [segApellido, setSegApellido] = useState('');
@@ -28,41 +30,45 @@ const Ingresar = () => {
     if(acompanante){
       setUsuario((prev)=>({
         ...prev,
-        A_tp: tp,
-        B_documento: documento,
-        C_motivoAlojamiento: motivoAlojamiento,
-        D_fechaIngreso: fechaIngreso,
-        E_acompanante: acompanante,
-        F_priApellido: priApellido,
-        G_segApellido: segApellido,
-        H_priNombre: priNombre,
-        I_segNombre: segNombre,
-        J_observaciones: observaciones,
-        Q_fechaSalida: '',
-        R_estadoUsuario: true,
-        Z_id: uid(7)
+        tp: tp,
+        documento: documento,
+        motivoAlojamiento: motivoAlojamiento,
+        fechaIngreso: fechaIngreso,
+        acompanante: acompanante,
+        priApellido: priApellido,
+        segApellido: segApellido,
+        priNombre: priNombre,
+        segNombre: segNombre,
+        observaciones: observaciones,
+        fechaSalida: '',
+        estadoUsuario: true,
+        id: uid(7)
       }));
     } else {
-      setUsuario({
-        A_tp: tp,
-        B_documento: documento,
-        C_motivoAlojamiento: motivoAlojamiento,
-        D_fechaIngreso: fechaIngreso,
-        E_acompanante: acompanante,
-        F_priApellido: priApellido,
-        G_segApellido: segApellido,
-        H_priNombre: priNombre,
-        I_segNombre: segNombre,
-        J_observaciones: observaciones,
-        Q_fechaSalida: '',
-        R_estadoUsuario: true,
-        Z_id: uid(7)
-      });
+      setUsuario(
+        {
+        tp: tp,
+        documento: documento,
+        motivoAlojamiento: motivoAlojamiento,
+        fechaIngreso: fechaIngreso,
+        acompanante: acompanante,
+        priApellido: priApellido,
+        segApellido: segApellido,
+        priNombre: priNombre,
+        segNombre: segNombre,
+        observaciones: observaciones,
+        fechaSalida: '',
+        estadoUsuario: true,
+        id: uid(7)
+      }
+    );
     }
   },[setUsuario,tp,documento,motivoAlojamiento,fechaIngreso,acompanante,priApellido,segApellido,priNombre,segNombre,observaciones])
   
   const handleSubmit = () => {
+    agregarRegistro(usuario);
     console.log(usuario);
+    setUsuario({});
   }
 
   return (

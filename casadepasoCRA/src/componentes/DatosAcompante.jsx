@@ -16,12 +16,12 @@ const DatosAcompante = () => {
   useEffect(()=>{
     setUsuario((prev)=>(
       {...prev,
-      K_tpAcompanante: tp,
-      L_documentoAcompanante: documento,
-      M_priApellidoAcompanante: priApellido,
-      N_segApellidoAcompanante: segApellido,
-      O_priNombreAcompanante: priNombre,
-      P_segNombreAcompanante: segNombre
+      tpAcompanante: tp,
+      documentoAcompanante: documento,
+      priApellidoAcompanante: priApellido,
+      segApellidoAcompanante: segApellido,
+      priNombreAcompanante: priNombre,
+      segNombreAcompanante: segNombre
     }));
   },[tp,documento,priApellido,segApellido,priNombre,segNombre,setUsuario])
 
