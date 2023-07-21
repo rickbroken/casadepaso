@@ -8,27 +8,27 @@ import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestor
 const useObtenerAlimentos = () => {
     const [alimentosUsuarios, setAlimentosUsuarios] = useState([]);
     //const {usuario} = useAuth()
-    const id = '092cef0';
+    const [idRegistro, setIdRegistro] = useState('');
 
-
-
-    useEffect(()=>{
-        const consulta = query(
-            collection(db, 'Alimentos'),
-            where('id', '==', id)
+    const handleBuscarAlimentos = ()=>{
+      const consulta = query(
+        collection(db, 'Alimentos'),
+        where('id', '==', idRegistro)
         );
-
+        
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
           setAlimentosUsuarios(snapshot.docs.map((registro)=>{
-                return registro.data();
-            }));
-          });
+            return registro.data();
+          }));
+        });
 
+        console.log('se ejecuto');
+        
         return unsuscribe;
-    },[alimentosUsuarios]);
+      };
+      
 
-
-    return {alimentosUsuarios,setAlimentosUsuarios};
+    return {alimentosUsuarios,handleBuscarAlimentos,setIdRegistro,idRegistro};
 }
  
 export default useObtenerAlimentos;

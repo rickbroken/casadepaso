@@ -40,7 +40,7 @@ const FilaUsuario = ({id,idDocFirebase,tp,documento,priApellido,segApellido,priN
         <td>{fechaIngreso}</td>
         <td>{!fechaSalida ? '-' : fechaSalida}</td>
         <EstadoAlojamiento estadoUsuario={estadoUsuario} />
-        <td><BtnAgregar funcion={()=>setMostrarAccionAgregar(true)} /></td>
+        <td>{estadoUsuario ? <BtnAgregar name='Agregar' funcion={()=>setMostrarAccionAgregar(true)} /> : <BtnAgregar name='Ver más' funcion={()=>setMostrarAccionAgregar(true)} />}</td>
         <td><Icon icon="clarity:note-edit-line" color="#095c51" width='25'/></td>
       </tr>
     </>

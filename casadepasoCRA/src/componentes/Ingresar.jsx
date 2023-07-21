@@ -7,7 +7,7 @@ import InputCheck from '../elementos/InputCheck'
 import { ContextoUsuarios } from '../contextos/ContextoUsuarios';
 import { uid } from 'uid';
 import agregarRegistro from '../firebase/agregarRegistro';
-import { format } from 'date-fns';
+import { getTime } from 'date-fns';
 
 
 
@@ -17,7 +17,10 @@ const Ingresar = () => {
   const [tp, setTp] = useState('');
   const [documento, setDocumento] = useState('');
   const [motivoAlojamiento, setMotivoAlojamiento] = useState('');
-  const [fechaIngreso, setFechaIngreso] = useState(format(new Date(), 'dd/MM/yyyy'));
+
+  const fechaHoy = getTime(new Date());
+  const [fechaIngreso, setFechaIngreso] = useState(fechaHoy);
+
   const [acompanante, setAcompanante] = useState(true);
   const [priApellido, setPriApellido] = useState('');
   const [segApellido, setSegApellido] = useState('');
