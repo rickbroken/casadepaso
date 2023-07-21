@@ -7,7 +7,8 @@ import InputCheck from '../elementos/InputCheck'
 import { ContextoUsuarios } from '../contextos/ContextoUsuarios';
 import { uid } from 'uid';
 import agregarRegistro from '../firebase/agregarRegistro';
-import { getTime } from 'date-fns';
+import { format, getTime } from 'date-fns';
+import { parse } from 'date-fns/esm';
 
 
 
@@ -18,8 +19,9 @@ const Ingresar = () => {
   const [documento, setDocumento] = useState('');
   const [motivoAlojamiento, setMotivoAlojamiento] = useState('');
 
-  const fechaHoy = getTime(new Date());
-  const [fechaIngreso, setFechaIngreso] = useState(fechaHoy);
+  const [fechaIngreso, setFechaIngreso] = useState('');
+  const fechaIngresoUnix = getTime(parse(fechaIngreso, 'yyyy-MM-dd', new Date()));
+
 
   const [acompanante, setAcompanante] = useState(true);
   const [priApellido, setPriApellido] = useState('');
@@ -36,7 +38,7 @@ const Ingresar = () => {
         tp: tp,
         documento: documento,
         motivoAlojamiento: motivoAlojamiento,
-        fechaIngreso: fechaIngreso,
+        fechaIngreso: fechaIngresoUnix,
         acompanante: acompanante,
         priApellido: priApellido,
         segApellido: segApellido,
@@ -53,7 +55,7 @@ const Ingresar = () => {
         tp: tp,
         documento: documento,
         motivoAlojamiento: motivoAlojamiento,
-        fechaIngreso: fechaIngreso,
+        fechaIngreso: fechaIngresoUnix,
         acompanante: acompanante,
         priApellido: priApellido,
         segApellido: segApellido,

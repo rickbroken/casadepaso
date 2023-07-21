@@ -5,13 +5,7 @@ import useObtenerRegistros from '../hooks/useObtenerRegistros';
 
 const Procesar = () => {
 
-
-  //Simulamos que resivimos los datos firebase
-  const [usuarios,setUsuarios] = useState([]);
-
-  const {registros,handleConsultar} = useObtenerRegistros();
-
-  //Funcion cuando se da click en btn buscar
+  const {registros, handleConsultar, fechaInicio, setFechaInicio, fechaFin, setFechaFin, estadoUsuario, setEstadoUsuario} = useObtenerRegistros();
 
 
   return (
@@ -19,22 +13,22 @@ const Procesar = () => {
       <div className='flex items-end my-5'>
         <div className='mr-4'>
           <p>Fecha de ingreso</p>
-          <input value={''} onChange={(e)=>console.log(e.target.value)} type="date" className='border-inputs h-10 py-2 px-2 border rounded-md' />
+          <input value={fechaInicio} onChange={(e)=>setFechaInicio(e.target.value)} type="date" className='border-inputs h-10 py-2 px-2 border rounded-md' />
         </div>
         
         <div className='mr-4'>
           <p>Fecha de salida</p>
-          <input value={''} onChange={(e)=>console.log(e.target.value)} type="date" className='border-inputs h-10 py-2 px-2 border rounded-md' />
+          <input value={fechaFin} onChange={(e)=>setFechaFin(e.target.value)} type="date" className='border-inputs h-10 py-2 px-2 border rounded-md' />
         </div>
 
         <div className='mr-4'>
           <p>Estado del usuario:</p>
-          <select value={''} onChange={(e)=>console.log(e.target.value)}
+          <select value={estadoUsuario} onChange={(e)=>setEstadoUsuario(e.target.value)}
             className='border-inputs py-2 px-2 border rounded-md w-full'>
             <option value="">Seleccione el estado</option>
-            <option value="ESTADIA">EN ESTADIA</option>
-            <option value="FINALIZADO">FINALIZADO</option>
-            <option value="TODOS">TODOS</option>
+            <option value={'true'}>EN ESTADIA</option>
+            <option value={'false'}>FINALIZADO</option>
+            <option value={'false, true'}>TODOS</option>
           </select>
         </div>
 
