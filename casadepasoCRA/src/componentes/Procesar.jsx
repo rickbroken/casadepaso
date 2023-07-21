@@ -28,7 +28,7 @@ const Procesar = () => {
             <option value="">Seleccione el estado</option>
             <option value={'true'}>EN ESTADIA</option>
             <option value={'false'}>FINALIZADO</option>
-            <option value={'false, true'}>TODOS</option>
+            <option value={'false,true'}>TODOS</option>
           </select>
         </div>
 

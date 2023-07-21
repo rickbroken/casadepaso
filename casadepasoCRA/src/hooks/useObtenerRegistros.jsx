@@ -23,7 +23,7 @@ const useObtenerRegistros = () => {
       setEstadoUsuario([true]);
     } else if(estadoUsuario === 'false') {
       setEstadoUsuario([false]);
-    } else if(estadoUsuario === 'false, true'){
+    } else if(estadoUsuario === 'false,true'){
       setEstadoUsuario([false, true]);
     }
 

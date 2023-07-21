@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
-import { format, getTime } from 'date-fns';
+import { format, getTime, parse } from 'date-fns';
 import agregarAlimentos from './../firebase/agregarAlimentos';
 import Alerta from '../elementos/Alerta';
 import finalizarEstadoRegistro from '../firebase/finalizarEstadoRegistro';
@@ -9,7 +9,7 @@ import FilaAlimentos from './FilaAlimentos';
 
 
 
-const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,segApellido,priNombre,segNombre,estadoUsuario,acompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante}) => {
+const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,priApellido,segApellido,priNombre,segNombre,estadoUsuario,acompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante}) => {
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [typeAlerta, setTypeAlerta] = useState('');
   const [valueAlerta, setValueAlerta] = useState('');
@@ -17,7 +17,10 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,seg
 
   const [alimentos, setAlimentos] = useState([]);
 
-  const fechaHoy = getTime(new Date());
+  const [fechaIngresarAlimento, setFechaIngresarAlimento] = useState('');
+  const fechaHoy = getTime(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()));
+  
+  console.log(fechaIngresarAlimento);
   
   const [desayuno, setDesayuno] = useState(0);
   const [almuerzo, setAlmuerzo] = useState(0);
@@ -45,6 +48,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,seg
     setDesayunoAcompanante(0);
     setAlmuerzoAcompanante(0);
     setCenaAcompanante(0);
+    setFechaIngresarAlimento('');
   }
 
   useEffect(()=>{
@@ -61,7 +65,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,seg
         cenaAcompanante: cenaAcompanante
       }]
     });
-  },[desayuno,almuerzo,cena,desayunoAcompanante,almuerzoAcompanante,cenaAcompanante,acompanante,id])
+  },[desayuno,almuerzo,cena,desayunoAcompanante,almuerzoAcompanante,cenaAcompanante,acompanante,id,fechaIngresarAlimento,setFechaIngresarAlimento])
 
   const handleFinalizarEstadia = () => {
     //tenemos que actualizar el doc en firebase con el estado de usuario finalizado
@@ -70,9 +74,40 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,seg
   }
 
   const handleAgregarAlimentos = () => {
+    if(fechaIngreso <= fechaIngresarAlimento) {
+      console.log('la fecha que ingresaste, es menor a la fecha de ingreso del usuario');
+      return;
+    }
+
+    if(alimentosUsuarios.length === 0){
+      agregarAlimentos(alimentos);
+        console.log('Ingresado')
+  
+        definirAlerta('Alimentos Agregados', 'true');
+  
+        limpiarCheckeds();
+        return;
+    }
+
+    let fechaRepetida = false;
+    alimentosUsuarios.map((alimento)=>{
+      if(alimento.fechaAlimento === fechaHoy){
+        definirAlerta('Ya ingresaste alimentos el dia de hoy', 'error');
+        fechaRepetida = true;
+        return;
+      }
+    });
+
+    //Si hay una fecha repetida en la lista de alimentos entonces detendra la ejecucion de la funcion padre
+    if(fechaRepetida){
+      return;
+    }
+
+    console.log('se ejecuto');
     try {
       //llamamos funcion para agregar alimentos a firebase cloud
       agregarAlimentos(alimentos);
+
 
       definirAlerta('Alimentos Agregados', 'true');
 
@@ -91,13 +126,17 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,seg
   return (
     <tr onClick={(e)=> e.target.id === 'fondo' && setMostrarAccionAgregar(false)} id='fondo' className='fixed w-full h-screen top-0 left-0 bg-[#0000003d] flex justify-center items-center'>
 
-      <td className='relative w-8/12 bg-white rounded-xl h-5/6 flex flex-col'>
+      <td className='relative w-8/12 bg-white rounded-xl h-5/6 flex flex-col items-start'>
           <Icon onClick={()=>setMostrarAccionAgregar(false)} className='absolute right-2 top-1' width='30' icon="eva:close-fill" color="#095c51" />
         
         {!estadoUsuario && <><h1 className='font-[400] text-lg my-2'>Detalles de alimentos sumisnitrados</h1></>}
         {estadoUsuario &&
           <>
-          <div className='px-4 py-2 w-full flex flex-col items-start'>
+          <div className='mr-4 mx-4'>
+            <p className='font-[600]'>Fecha suministro de alimento:</p>
+            <input value={fechaIngresarAlimento} onChange={(e)=>setFechaIngresarAlimento(e.target.value)} type="date" className='border-inputs h-10 py-2 px-2 border rounded-md' />
+          </div>
+          <div className='px-6 py-2 w-full flex flex-col items-start'>
             <p>Agregar alimentos a usuario: <span className='font-[400]'>{`${priApellido} ${segApellido} ${priNombre} ${segNombre}`}</span></p>
 
             <div className='w-8/12 flex justify-between mx-auto'>
@@ -119,7 +158,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,seg
           </div>
 
           {acompanante &&
-            <div className='px-4 py-2 w-full flex flex-col items-start'>
+            <div className='px-6 py-2 w-full flex flex-col items-start'>
               <p>Agregar alimentos a acompañante: <span className='font-[400]'>{`${priApellidoAcompanante} ${segApellidoAcompanante} ${priNombreAcompanante} ${segNombreAcompanante}`}</span></p>
 
               <div className='w-8/12 flex justify-between mx-auto'>
@@ -140,7 +179,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,seg
               </div>
             </div>}
 
-            <div>
+            <div className='w-full'>
               <button onClick={handleAgregarAlimentos} className='rounded-md px-12 mx-2 bg-[#1d61ad] hover:bg-[#143f70] text-white'>Agregar Alimentos</button>
             </div>
           </>
@@ -178,7 +217,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,priApellido,seg
         <hr className='my-4 w-full mx-auto'/>
 
         {estadoUsuario && 
-          <div>
+          <div className='w-full py-4'>
             <button onClick={()=>handleFinalizarEstadia()} className='rounded-md px-12 bg-red-500 hover:bg-red-700 text-white'>Finalizar Estadia</button>
           </div>
         }

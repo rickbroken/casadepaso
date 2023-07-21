@@ -26,6 +26,7 @@ const FilaUsuario = ({id,idDocFirebase,tp,documento,priApellido,segApellido,priN
           segApellidoAcompanante={segApellidoAcompanante}
           priNombreAcompanante={priNombreAcompanante}
           segNombreAcompanante={segNombreAcompanante}
+          fechaIngreso={fechaIngreso}
         />
       }
 
