@@ -12,12 +12,12 @@ const Procesar = () => {
     <div className=' m-4'>
       <div className='flex items-end my-5'>
         <div className='mr-4'>
-          <p>Fecha de ingreso</p>
+          <p>Fecha Inicio</p>
           <input value={fechaInicio} onChange={(e)=>setFechaInicio(e.target.value)} type="date" className='border-inputs h-10 py-2 px-2 border rounded-md' />
         </div>
         
         <div className='mr-4'>
-          <p>Fecha de salida</p>
+          <p>Fecha Fin</p>
           <input value={fechaFin} onChange={(e)=>setFechaFin(e.target.value)} type="date" className='border-inputs h-10 py-2 px-2 border rounded-md' />
         </div>
 
