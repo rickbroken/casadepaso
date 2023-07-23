@@ -129,7 +129,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
       <td className='relative w-8/12 bg-white rounded-xl h-5/6 flex flex-col items-start'>
           <Icon onClick={()=>setMostrarAccionAgregar(false)} className='absolute right-2 top-1' width='30' icon="eva:close-fill" color="#095c51" />
         
-        {!estadoUsuario && <><h1 className='font-[400] text-lg my-2'>Detalles de alimentos sumisnitrados</h1></>}
+        {!estadoUsuario && <><h1 className='font-[400] text-lg my-2 mx-4'>Detalles de alimentos sumisnitrados</h1></>}
         {estadoUsuario &&
           <>
           <div className='mr-4 mx-4'>

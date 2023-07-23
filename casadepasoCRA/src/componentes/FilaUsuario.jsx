@@ -4,12 +4,19 @@ import EstadoAlojamiento from '../elementos/EstadoAlojamiento';
 import BtnAgregar from '../elementos/BtnAgregar';
 import AccionAgregar from './AccionAgregar';
 import { format, fromUnixTime } from 'date-fns';
+import EditarRegistro from './EditarRegistro';
 
 const FilaUsuario = ({id,idDocFirebase,tp,documento,priApellido,segApellido,priNombre,segNombre,fechaIngreso,fechaSalida,estadoUsuario,acompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante}) => {
   const [mostrarAccionAgregar, setMostrarAccionAgregar] = useState(false);
+  const [mostarEditarRegistro, setMostrarEditarRegistro] = useState(false);
   
   return (
     <>
+      {mostarEditarRegistro &&
+        <EditarRegistro 
+          setMostrarEditarRegistro={setMostrarEditarRegistro}
+        />
+      }
       {mostrarAccionAgregar &&
         <AccionAgregar
           setMostrarAccionAgregar={setMostrarAccionAgregar}
@@ -42,7 +49,7 @@ const FilaUsuario = ({id,idDocFirebase,tp,documento,priApellido,segApellido,priN
         <td>{!fechaSalida ? '-' : format(fromUnixTime(fechaSalida) / 1000, 'dd/MM/yyyy')}</td>
         <EstadoAlojamiento estadoUsuario={estadoUsuario} />
         <td><BtnAgregar estadoUsuario={estadoUsuario} funcion={()=>setMostrarAccionAgregar(true)} /></td>
-        <td><Icon icon="clarity:note-edit-line" color="#095c51" width='25'/></td>
+        <td onClick={()=>setMostrarEditarRegistro(true)}><Icon icon="clarity:note-edit-line" color="#095c51" width='25'/></td>
       </tr>
     </>
   );

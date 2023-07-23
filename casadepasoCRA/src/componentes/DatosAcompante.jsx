@@ -27,11 +27,12 @@ const DatosAcompante = ({tpAcompanante, setTpAcompanante, documentoAcompanante, 
       <div className='flex my-2'>
         <div className='mr-2'>
           <p>TP Doc:</p>
-          <select value={tpAcompanante} onChange={(e)=>setTpAcompanante(e.target.value)} className='border-inputs py-2 px-2 border rounded-md'>
+          <select value={tpAcompanante} onChange={(e)=>setTpAcompanante(e.target.value)} className='border-inputs py-2 px-2 border rounded-md h-9'>
             <TpDocumentos />
           </select>
         </div>
         <ContInputText
+          claseCSS='h-9'
           name='Documento del usuario:'
           onChange={(e)=>setDocumentoAcompanante(e.target.value)}
           value={documentoAcompanante}
@@ -41,24 +42,28 @@ const DatosAcompante = ({tpAcompanante, setTpAcompanante, documentoAcompanante, 
 
       <div className='flex justify-between my-4'>
         <ContInputText
+          claseCSS='h-9'
           name='Primer Apellido:'
           onChange={(e)=>setPriApellidoAcompanante(e.target.value.toUpperCase())}
           value={priApellidoAcompanante}
           placeholder='Escribre el apellido'
         />
         <ContInputText
+          claseCSS='h-9'
           name='Segundo Apellido:'
           onChange={(e)=>setSegApellidoAcompanante(e.target.value.toUpperCase())}
           value={segApellidoAcompanante}
           placeholder='Escribre el apellido'
         />
         <ContInputText
+          claseCSS='h-9'
           name='Primer Nombre:'
           onChange={(e)=>setPriNombreAcompanante(e.target.value.toUpperCase())}
           value={priNombreAcompanante}
           placeholder='Escribre el nombre'
         />
         <ContInputText
+          claseCSS='h-9'
           name='Segundo Nombre:'
           onChange={(e)=>setSegNombreAcompanante(e.target.value.toUpperCase())}
           value={segNombreAcompanante}

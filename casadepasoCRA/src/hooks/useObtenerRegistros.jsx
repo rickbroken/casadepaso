@@ -16,7 +16,7 @@ const useObtenerRegistros = () => {
     const [fechaFin, setFechaFin] = useState('');
     const fechaFinUnix = (getTime(parse(fechaFin, 'yyyy-MM-dd', new Date())));
 
-    const [estadoUsuario, setEstadoUsuario] = useState([]);
+    const [estadoUsuario, setEstadoUsuario] = useState('');
 
     //Convertirmos los valores strg de input opcion de Procesar.jsx a valore booleanos
     if(estadoUsuario === 'true'){
