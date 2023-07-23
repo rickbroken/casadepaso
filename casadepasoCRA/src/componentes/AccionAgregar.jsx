@@ -92,7 +92,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
     let fechaRepetida = false;
     alimentosUsuarios.map((alimento)=>{
       if(alimento.fechaAlimento === fechaHoy){
-        definirAlerta('Ya ingresaste alimentos el dia de hoy', 'error');
+        definirAlerta('Ya ingresaste alimentos para la fecha que proporsionaste', 'error');
         fechaRepetida = true;
         return;
       }

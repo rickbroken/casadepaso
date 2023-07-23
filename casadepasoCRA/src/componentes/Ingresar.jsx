@@ -9,12 +9,28 @@ import { uid } from 'uid';
 import agregarRegistro from '../firebase/agregarRegistro';
 import { format, getTime } from 'date-fns';
 import { parse } from 'date-fns/esm';
+import Alerta from '../elementos/Alerta';
 
 
 
 const Ingresar = () => {
   const {usuario, setUsuario} =  useContext(ContextoUsuarios);
+
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const [typeAlerta, setTypeAlerta] = useState('');
+  const [valueAlerta, setValueAlerta] = useState('');
+
+  const definirAlerta = (value, type) => {
+    setMostrarAlerta(true);
+    setValueAlerta(value);
+    setTypeAlerta(type);
+    setTimeout(()=>{
+      setMostrarAlerta(false);
+    },4000)
+  }
   
+
+
   const [tp, setTp] = useState('');
   const [documento, setDocumento] = useState('');
   const [motivoAlojamiento, setMotivoAlojamiento] = useState('');
@@ -29,6 +45,33 @@ const Ingresar = () => {
   const [priNombre, setPriNombre] = useState('');
   const [segNombre, setSegNombre] = useState('');
   const [observaciones, setObservaciones] = useState('');
+
+  const [tpAcompanante, setTpAcompanante] = useState('');
+  const [documentoAcompanante, setDocumentoAcompanante] = useState('');
+  const [priApellidoAcompanante, setPriApellidoAcompanante] = useState('');
+  const [segApellidoAcompanante, setSegApellidoAcompanante] = useState('');
+  const [priNombreAcompanante, setPriNombreAcompanante] = useState('');
+  const [segNombreAcompanante, setSegNombreAcompanante] = useState('');
+
+
+  const limpiarFormulario = () => {
+    setTp('');
+    setDocumento('');
+    setMotivoAlojamiento('');
+    setFechaIngreso('');
+    setAcompanante(true);
+    setPriApellido('');
+    setSegApellido('');
+    setPriNombre('');
+    setSegNombre('');
+    setObservaciones('');
+    setTpAcompanante('');
+    setDocumentoAcompanante('');
+    setPriApellidoAcompanante('');
+    setSegApellidoAcompanante('');
+    setPriNombreAcompanante('');
+    setSegNombreAcompanante('');
+  }
 
   
   useEffect(()=>{
@@ -71,13 +114,37 @@ const Ingresar = () => {
   },[setUsuario,tp,documento,motivoAlojamiento,fechaIngreso,acompanante,priApellido,segApellido,priNombre,segNombre,observaciones])
   
   const handleSubmit = () => {
-    agregarRegistro(usuario);
-    console.log(usuario);
-    setUsuario({});
+    const enviarRegistro = () => {
+      agregarRegistro(usuario);
+      setUsuario({});
+      definirAlerta('Registro ingresado correctamente','true');
+      limpiarFormulario();
+    }
+
+    if(acompanante){
+      if(tp !== '' && documento !== '' && motivoAlojamiento !== '' && fechaIngreso  !== '' && priApellido !== '' && priNombre !== '' && tpAcompanante !== '' && documentoAcompanante !== '' && priApellidoAcompanante !== '' && priNombreAcompanante !== '' && observaciones !== ''){
+        enviarRegistro();
+      } else {
+        definirAlerta('Faltan campos por diligenciar', 'error');
+        return;
+      }
+    } else {
+      if(tp !== '' && documento !== '' && motivoAlojamiento !== '' && fechaIngreso  !== '' && priApellido !== '' && priNombre !== '' && observaciones !== ''){
+        enviarRegistro();
+      } else {
+        definirAlerta('Faltan campos por diligenciar', 'error');
+        return;
+      }
+    }
   }
 
+  console.log(documentoAcompanante);
   return (
     <div className='bg-white text-md max-w-[949px] w-12/12 mx-auto my-6 rounded-lg'>
+      {mostrarAlerta && 
+        <Alerta value={valueAlerta} type={typeAlerta}/>
+      }
+
       <form className='w-11/12 mx-auto py-5'>
         <p className='text-center text-2xl font-[500]'>DATOS DEL USUARIO</p>
 
@@ -141,7 +208,18 @@ const Ingresar = () => {
         </div>
 
         {acompanante &&
-          <DatosAcompante />
+          <DatosAcompante tpAcompanante={tpAcompanante}
+          setTpAcompanante={setTpAcompanante}
+          documentoAcompanante={documentoAcompanante}
+          setDocumentoAcompanante={setDocumentoAcompanante}
+          priApellidoAcompanante={priApellidoAcompanante}
+          setPriApellidoAcompanante={setPriApellidoAcompanante}
+          segApellidoAcompanante={segApellidoAcompanante}
+          setSegApellidoAcompanante={setSegApellidoAcompanante}
+          priNombreAcompanante={priNombreAcompanante}
+          setPriNombreAcompanante={setPriNombreAcompanante}
+          segNombreAcompanante={segNombreAcompanante}
+          setSegNombreAcompanante={setSegNombreAcompanante} />
         }
         
         <div className='w-full'>

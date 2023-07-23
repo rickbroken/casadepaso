@@ -3,27 +3,20 @@ import ContInputText from './ContInputText';
 import TpDocumentos from '../elementos/TpDocumentos';
 import { ContextoUsuarios } from '../contextos/ContextoUsuarios';
 
-const DatosAcompante = () => {
+const DatosAcompante = ({tpAcompanante, setTpAcompanante, documentoAcompanante, setDocumentoAcompanante, priApellidoAcompanante, setPriApellidoAcompanante, segApellidoAcompanante, setSegApellidoAcompanante, priNombreAcompanante, setPriNombreAcompanante, segNombreAcompanante, setSegNombreAcompanante}) => {
   const {setUsuario} = useContext(ContextoUsuarios);
-
-  const [tp, setTp] = useState('');
-  const [documento, setDocumento] = useState('');
-  const [priApellido, setPriApellido] = useState('');
-  const [segApellido, setSegApellido] = useState('');
-  const [priNombre, setPriNombre] = useState('');
-  const [segNombre, setSegNombre] = useState('');
 
   useEffect(()=>{
     setUsuario((prev)=>(
       {...prev,
-      tpAcompanante: tp,
-      documentoAcompanante: documento,
-      priApellidoAcompanante: priApellido,
-      segApellidoAcompanante: segApellido,
-      priNombreAcompanante: priNombre,
-      segNombreAcompanante: segNombre
+      tpAcompanante: tpAcompanante,
+      documentoAcompanante: documentoAcompanante,
+      priApellidoAcompanante: priApellidoAcompanante,
+      segApellidoAcompanante: segApellidoAcompanante,
+      priNombreAcompanante: priNombreAcompanante,
+      segNombreAcompanante: segNombreAcompanante
     }));
-  },[tp,documento,priApellido,segApellido,priNombre,segNombre,setUsuario])
+  },[tpAcompanante,documentoAcompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante,setUsuario])
 
   return (
     <>
@@ -34,14 +27,14 @@ const DatosAcompante = () => {
       <div className='flex my-2'>
         <div className='mr-2'>
           <p>TP Doc:</p>
-          <select value={tp} onChange={(e)=>setTp(e.target.value)} className='border-inputs py-2 px-2 border rounded-md'>
+          <select value={tpAcompanante} onChange={(e)=>setTpAcompanante(e.target.value)} className='border-inputs py-2 px-2 border rounded-md'>
             <TpDocumentos />
           </select>
         </div>
         <ContInputText
           name='Documento del usuario:'
-          onChange={(e)=>setDocumento(e.target.value)}
-          value={documento}
+          onChange={(e)=>setDocumentoAcompanante(e.target.value)}
+          value={documentoAcompanante}
           placeholder='Escribre el documento'
         />
       </div>
@@ -49,26 +42,26 @@ const DatosAcompante = () => {
       <div className='flex justify-between my-4'>
         <ContInputText
           name='Primer Apellido:'
-          onChange={(e)=>setPriApellido(e.target.value.toUpperCase())}
-          value={priApellido}
+          onChange={(e)=>setPriApellidoAcompanante(e.target.value.toUpperCase())}
+          value={priApellidoAcompanante}
           placeholder='Escribre el apellido'
         />
         <ContInputText
           name='Segundo Apellido:'
-          onChange={(e)=>setSegApellido(e.target.value.toUpperCase())}
-          value={segApellido}
+          onChange={(e)=>setSegApellidoAcompanante(e.target.value.toUpperCase())}
+          value={segApellidoAcompanante}
           placeholder='Escribre el apellido'
         />
         <ContInputText
           name='Primer Nombre:'
-          onChange={(e)=>setPriNombre(e.target.value.toUpperCase())}
-          value={priNombre}
+          onChange={(e)=>setPriNombreAcompanante(e.target.value.toUpperCase())}
+          value={priNombreAcompanante}
           placeholder='Escribre el nombre'
         />
         <ContInputText
           name='Segundo Nombre:'
-          onChange={(e)=>setSegNombre(e.target.value.toUpperCase())}
-          value={segNombre}
+          onChange={(e)=>setSegNombreAcompanante(e.target.value.toUpperCase())}
+          value={segNombreAcompanante}
           placeholder='Escribre el nombre'
         />
       </div>
