@@ -18,7 +18,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
   const [alimentos, setAlimentos] = useState([]);
 
   const [fechaIngresarAlimento, setFechaIngresarAlimento] = useState('');
-  const fechaHoy = getTime(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()));
+  const fechaUnixIngresoAliemto = getTime(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()));
   
   
   const [desayuno, setDesayuno] = useState(0);
@@ -54,7 +54,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
     setIdRegistro(id);
     setAlimentos({
       id: id,
-      fechaAlimento: fechaHoy,
+      fechaAlimento: fechaUnixIngresoAliemto,
       alimentos: [{
         desayuno: desayuno,
         almuerzo: almuerzo,
@@ -66,18 +66,32 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
     });
   },[desayuno,almuerzo,cena,desayunoAcompanante,almuerzoAcompanante,cenaAcompanante,acompanante,id,fechaIngresarAlimento,setFechaIngresarAlimento])
 
+
+  const [fechaSalida, setFechaSalida] = useState('');
+  const fechaUnixSalida = getTime(parse(fechaSalida, 'yyyy-MM-dd', new Date()));
+
   const handleFinalizarEstadia = () => {
-    //tenemos que actualizar el doc en firebase con el estado de usuario finalizado
-    finalizarEstadoRegistro(idDocFirebase,false,fechaHoy);
-    setMostrarAccionAgregar(false);
+    if(fechaSalida === '' || fechaSalida === null || fechaSalida === undefined){
+      definirAlerta('Ingrese una fecha de salida valida', 'error');
+      return;
+    } else {
+      if(fechaIngreso > fechaUnixSalida) {
+        definirAlerta('La de salida no puede ser menor a la fecha que el usuario ingreso','error')
+        return;
+      }
+      //tenemos que actualizar el doc en firebase con el estado de usuario finalizado
+      finalizarEstadoRegistro(idDocFirebase,false,fechaUnixSalida);
+      setMostrarAccionAgregar(false);
+    }
   }
+
 
   const handleAgregarAlimentos = () => {
     if(fechaIngresarAlimento === '' || fechaIngresarAlimento === null || fechaIngresarAlimento === undefined){
       definirAlerta('Ingresa una fecha valida de suministro de alimento', 'error');
       return;
     } else {
-      if(fechaIngreso > getTime(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()))) {
+      if(fechaIngreso > fechaUnixIngresoAliemto){
         definirAlerta('La fecha que ingresaste, es menor a la fecha de ingreso del usuario','error')
         return;
       }
@@ -94,7 +108,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
   
       let fechaRepetida = false;
       alimentosUsuarios.map((alimento)=>{
-        if(alimento.fechaAlimento === fechaHoy){
+        if(alimento.fechaAlimento === fechaUnixIngresoAliemto){
           definirAlerta('Ya ingresaste alimentos para la fecha que proporsionaste', 'error');
           fechaRepetida = true;
           return;
@@ -219,9 +233,16 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
 
         <hr className='my-4 w-full mx-auto'/>
 
-        {estadoUsuario && 
-          <div className='w-full py-4'>
-            <button onClick={()=>handleFinalizarEstadia()} className='rounded-md px-12 bg-red-500 hover:bg-red-700 text-white'>Finalizar Estadia</button>
+        {estadoUsuario &&
+          <div className='flex items-center justify-center w-full py-4'>
+            <div className=' flex mr-4 mx-4'>
+              <p className='font-[600] mx-2'>Fecha de salida:</p>
+              <input value={fechaSalida} onChange={(e)=>setFechaSalida(e.target.value)} type="date" 
+               className='border-inputs px-2 h-9 border rounded-md' />
+            </div>
+            <div className=''>
+              <button onClick={()=>handleFinalizarEstadia()} className='rounded-md px-12 bg-red-500 hover:bg-red-700 text-white'>Finalizar Estadia</button>
+            </div>
           </div>
         }
 
