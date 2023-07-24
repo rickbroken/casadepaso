@@ -67,6 +67,7 @@ const Procesar = () => {
                 idDocFirebase={usuario.idDocFirebase}
                 tp={usuario.tp}
                 documento={usuario.documento}
+                motivoAlojamiento={usuario.motivoAlojamiento}
                 priApellido={usuario.priApellido}
                 segApellido={usuario.segApellido}
                 priNombre={usuario.priNombre}
@@ -75,10 +76,13 @@ const Procesar = () => {
                 fechaSalida={usuario.fechaSalida}
                 estadoUsuario={usuario.estadoUsuario}
                 acompanante={usuario.acompanante}
+                tpAcompanante={usuario.tpAcompanante}
+                documentoAcompanante={usuario.documentoAcompanante}
                 priApellidoAcompanante={usuario.priApellidoAcompanante}
                 segApellidoAcompanante={usuario.segApellidoAcompanante}
                 priNombreAcompanante={usuario.priNombreAcompanante}
                 segNombreAcompanante={usuario.segNombreAcompanante}
+                observaciones={usuario.observaciones}
             />
             ))
           }

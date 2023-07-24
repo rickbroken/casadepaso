@@ -6,7 +6,7 @@ import AccionAgregar from './AccionAgregar';
 import { format, fromUnixTime } from 'date-fns';
 import EditarRegistro from './EditarRegistro';
 
-const FilaUsuario = ({id,idDocFirebase,tp,documento,priApellido,segApellido,priNombre,segNombre,fechaIngreso,fechaSalida,estadoUsuario,acompanante,priApellidoAcompanante,segApellidoAcompanante,priNombreAcompanante,segNombreAcompanante}) => {
+const FilaUsuario = ({id, idDocFirebase, tp, documento, motivoAlojamiento, priApellido, segApellido, priNombre, segNombre, fechaIngreso, fechaSalida, estadoUsuario, acompanante, tpAcompanante, documentoAcompanante, priApellidoAcompanante, segApellidoAcompanante, priNombreAcompanante, segNombreAcompanante, observaciones}) => {
   const [mostrarAccionAgregar, setMostrarAccionAgregar] = useState(false);
   const [mostarEditarRegistro, setMostrarEditarRegistro] = useState(false);
   
@@ -15,6 +15,26 @@ const FilaUsuario = ({id,idDocFirebase,tp,documento,priApellido,segApellido,priN
       {mostarEditarRegistro &&
         <EditarRegistro 
           setMostrarEditarRegistro={setMostrarEditarRegistro}
+          idDocFirebase={idDocFirebase}
+          tp={tp}
+          id={id}
+          documento={documento}
+          priApellido={priApellido}
+          segApellido={segApellido}
+          priNombre={priNombre}
+          segNombre={segNombre}
+          fechaSalida={fechaSalida}
+          estadoUsuario={estadoUsuario}
+          acompanante={acompanante}
+          priApellidoAcompanante={priApellidoAcompanante}
+          segApellidoAcompanante={segApellidoAcompanante}
+          priNombreAcompanante={priNombreAcompanante}
+          segNombreAcompanante={segNombreAcompanante}
+          fechaIngreso={fechaIngreso}
+          motivoAlojamiento={motivoAlojamiento}
+          tpAcompanante={tpAcompanante}
+          documentoAcompanante={documentoAcompanante}
+          observaciones={observaciones}
         />
       }
       {mostrarAccionAgregar &&

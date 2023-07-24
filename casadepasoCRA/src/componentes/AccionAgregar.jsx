@@ -20,7 +20,6 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
   const [fechaIngresarAlimento, setFechaIngresarAlimento] = useState('');
   const fechaHoy = getTime(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()));
   
-  console.log(fechaIngresarAlimento);
   
   const [desayuno, setDesayuno] = useState(0);
   const [almuerzo, setAlmuerzo] = useState(0);
@@ -74,46 +73,50 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
   }
 
   const handleAgregarAlimentos = () => {
-    if(fechaIngreso <= fechaIngresarAlimento) {
-      console.log('la fecha que ingresaste, es menor a la fecha de ingreso del usuario');
+    if(fechaIngresarAlimento === '' || fechaIngresarAlimento === null || fechaIngresarAlimento === undefined){
+      definirAlerta('Ingresa una fecha valida de suministro de alimento', 'error');
       return;
-    }
+    } else {
+      if(fechaIngreso > getTime(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()))) {
+        definirAlerta('La fecha que ingresaste, es menor a la fecha de ingreso del usuario','error')
+        return;
+      }
+  
+      if(alimentosUsuarios.length === 0){
+        agregarAlimentos(alimentos);
+          console.log('Ingresado')
+    
+          definirAlerta('Alimentos Agregados', 'true');
+    
+          limpiarCheckeds();
+          return;
+      }
+  
+      let fechaRepetida = false;
+      alimentosUsuarios.map((alimento)=>{
+        if(alimento.fechaAlimento === fechaHoy){
+          definirAlerta('Ya ingresaste alimentos para la fecha que proporsionaste', 'error');
+          fechaRepetida = true;
+          return;
+        }
+      });
+  
+      //Si hay una fecha repetida en la lista de alimentos entonces detendra la ejecucion de la funcion padre
+      if(fechaRepetida){
+        return;
+      }
 
-    if(alimentosUsuarios.length === 0){
-      agregarAlimentos(alimentos);
-        console.log('Ingresado')
+      try {
+        //llamamos funcion para agregar alimentos a firebase cloud
+        agregarAlimentos(alimentos);
+  
   
         definirAlerta('Alimentos Agregados', 'true');
   
         limpiarCheckeds();
-        return;
-    }
-
-    let fechaRepetida = false;
-    alimentosUsuarios.map((alimento)=>{
-      if(alimento.fechaAlimento === fechaHoy){
-        definirAlerta('Ya ingresaste alimentos para la fecha que proporsionaste', 'error');
-        fechaRepetida = true;
-        return;
+      } catch (error) {
+        definirAlerta('No se agregaron alimentos, Reinicie el navegador', 'error');
       }
-    });
-
-    //Si hay una fecha repetida en la lista de alimentos entonces detendra la ejecucion de la funcion padre
-    if(fechaRepetida){
-      return;
-    }
-
-    console.log('se ejecuto');
-    try {
-      //llamamos funcion para agregar alimentos a firebase cloud
-      agregarAlimentos(alimentos);
-
-
-      definirAlerta('Alimentos Agregados', 'true');
-
-      limpiarCheckeds();
-    } catch (error) {
-      definirAlerta('No se agregaron alimentos, Reinicie el navegador', 'error');
     }
   }
 
@@ -196,8 +199,8 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
                 <th>Desayuno</th>
                 <th>Almuerzo</th>
                 <th>Cena</th>
-                <th>Editar</th>
                 <th>Total</th>
+                <th>Editar</th>
               </tr>
             </thead>
             <tbody>

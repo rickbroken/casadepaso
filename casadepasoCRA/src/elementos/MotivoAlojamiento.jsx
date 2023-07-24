@@ -3,7 +3,7 @@ import React from 'react';
 const MotivoAlojamiento = () => {
   return (
     <>
-      <option value=""></option>
+      <option value="">Seleccione una opcion</option>
       <option value="CONSULTA EXTERNA">CONSULTA EXTERNA</option>
       <option value="CITA ESPECIALIDADES">CITA ESPECIALIDADES</option>
       <option value="SEGUIMIENTOS PYP">SEGUIMIENTOS PYP</option>

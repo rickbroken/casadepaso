@@ -20,11 +20,11 @@ const DatosAcompante = ({tpAcompanante, setTpAcompanante, documentoAcompanante, 
 
   return (
     <>
-      <hr className='my-8'/>
+      <hr className='my-4'/>
 
-      <p className='text-center text-2xl font-[500]'>DATOS DEL ACOMPAÑANTE</p>
+      <p className='text-center text-lg font-[500]'>DATOS DEL ACOMPAÑANTE</p>
 
-      <div className='flex my-2'>
+      <div className='flex'>
         <div className='mr-2'>
           <p>TP Doc:</p>
           <select value={tpAcompanante} onChange={(e)=>setTpAcompanante(e.target.value)} className='border-inputs py-2 px-2 border rounded-md h-9'>
@@ -40,7 +40,7 @@ const DatosAcompante = ({tpAcompanante, setTpAcompanante, documentoAcompanante, 
         />
       </div>
 
-      <div className='flex justify-between my-4'>
+      <div className='flex justify-between'>
         <ContInputText
           claseCSS='h-9'
           name='Primer Apellido:'
