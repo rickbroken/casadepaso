@@ -7,7 +7,6 @@ const Procesar = () => {
 
   const {registros, handleConsultar, fechaInicio, setFechaInicio, fechaFin, setFechaFin, estadoUsuario, setEstadoUsuario} = useObtenerRegistros();
 
-
   return (
     <div className=' m-4'>
       <div className='flex items-end my-5'>

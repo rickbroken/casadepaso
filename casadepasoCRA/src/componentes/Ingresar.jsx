@@ -7,7 +7,7 @@ import InputCheck from '../elementos/InputCheck'
 import { ContextoUsuarios } from '../contextos/ContextoUsuarios';
 import { uid } from 'uid';
 import agregarRegistro from '../firebase/agregarRegistro';
-import { format, getTime } from 'date-fns';
+import { getTime } from 'date-fns';
 import { parse } from 'date-fns/esm';
 import Alerta from '../elementos/Alerta';
 

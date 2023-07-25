@@ -1,13 +1,15 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { db } from './../firebase/firebaseConfig';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { getTime, parse } from 'date-fns';
+//import convertirCSV from '../funciones/convertirCSV';
 //import { useAuth } from '../contextos/AuthContext';
 
 
 
 const useObtenerRegistros = () => {
     const [registros, setRegistros] = useState([]);
+    //const [datosListos, setDatosListos] = useState(false);
     //const {usuario} = useAuth()
     
     const [fechaInicio, setFechaInicio] = useState('');
@@ -41,11 +43,18 @@ const useObtenerRegistros = () => {
             setRegistros(snapshot.docs.map((registro)=>{
                 return {...registro.data(), idDocFirebase: registro.id}
             }));
+            //setDatosListos(true);
           });
 
         return unsuscribe;
     };
 
+    //useEffect(()=>{
+    //  if(datosListos){
+    //    convertirCSV(registros, 'Data');
+    //    setDatosListos(false);
+    //  }
+    //},[registros])
 
     return {registros, handleConsultar, fechaInicio, setFechaInicio, fechaFin, setFechaFin, estadoUsuario, setEstadoUsuario};
 }
