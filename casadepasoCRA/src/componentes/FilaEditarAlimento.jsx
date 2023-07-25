@@ -1,40 +1,28 @@
 import { Icon } from '@iconify/react';
+import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { db } from '../firebase/firebaseConfig';
 
-const FilaEditarAlimento = ({alimentos,fechaFormateada, id}) => {
+const FilaEditarAlimento = ({alimentos,fechaFormateada,idDocFirebase}) => {
   const [editarAlimento, setEditarAlimento] = useState(false);
 
-  const [alimentosNuevos, setAlimentosNuevos] = useState({});
+  const [alimentosNuevos, setAlimentosNuevos] = useState({
+    alimentos: [{
+      desayuno: '',
+      almuerzo: '',
+      cena: '',
+      desayunoAcompanante: '',
+      almuerzoAcompanante: '',
+      cenaAcompanante: ''
+    }]
+  });
 
-  const [nuevoDesayuno, setNuevoDesayuno] = useState('');
-  const [nuevoAlmuerzo, setNuevoAlmuerzo] = useState('');
-  const [nuevoCena, setNuevoCena] = useState('');
-
-  const [nuevoDesayunoAcompanante, setNuevoDesayunoAcompanante] = useState('');
-  const [nuevoAlmuerzoAcompanante, setNuevoAlmuerzoAcompanante] = useState('');
-  const [nuevoCenaAcompanante, setNuevoCenaAcompanante] = useState('');
 
 
 
-  useEffect(()=>{
-    setAlimentosNuevos({
-      alimentos: [{
-        desayuno: nuevoDesayuno,
-        almuerzo: nuevoAlmuerzo,
-        cena: nuevoCena,
-        desayunoAcompanante: nuevoDesayunoAcompanante,
-        almuerzoAcompanante: nuevoAlmuerzoAcompanante,
-        cenaAcompanante: nuevoCenaAcompanante
-      }]
-    })
-  },[nuevoDesayuno,nuevoAlmuerzo,nuevoCena,nuevoDesayunoAcompanante,nuevoAlmuerzoAcompanante,nuevoCenaAcompanante])
-  
-  
-  
   const [inputDesayuno, setInputDesayuno] = useState(alimentos[0].desayuno + alimentos[0].desayunoAcompanante);
   const [inputAlmuerzo, setInputAlmuerzo] = useState(alimentos[0].almuerzo + alimentos[0].almuerzoAcompanante);
   const [inputCena, setInputCena] = useState(alimentos[0].cena + alimentos[0].cenaAcompanante);
-
 
 
   const definiAlimento = (nombreInput, nombreClavEstado, nombreClaveAcompananteEstado) => {
@@ -77,9 +65,14 @@ const FilaEditarAlimento = ({alimentos,fechaFormateada, id}) => {
   },[inputDesayuno,inputAlmuerzo,inputCena]);
 
   
-  const handleEditar = () => {
+  const handleEditar = async() => {
     console.log(alimentosNuevos);
     setEditarAlimento(false);
+    try {
+      await updateDoc(doc(db, 'Alimentos', idDocFirebase), alimentosNuevos)
+    } catch (error) {
+      console.log(error);
+    }
   } 
 
   return (
@@ -87,9 +80,9 @@ const FilaEditarAlimento = ({alimentos,fechaFormateada, id}) => {
       {editarAlimento ?
         <tr>
           <td className='w-[220px]'>{fechaFormateada}</td>
-          <td><input value={inputDesayuno} onChange={(e)=>setInputDesayuno(Number(e.target.value) > 2 ? 2 : Number(e.target.value))} className='border border-emerald-600 rounded-md text-center w-[40px]' min='0' max='2' type="number"/></td>
-          <td><input value={inputAlmuerzo} onChange={(e)=>setInputAlmuerzo(Number(e.target.value) > 2 ? 2 : Number(e.target.value))} className='border border-emerald-600 rounded-md text-center w-[40px]' min='0' max='2' type="number"/></td>
-          <td><input value={inputCena} onChange={(e)=>setInputCena(Number(e.target.value) > 2 ? 2 : Number(e.target.value))} className='border border-emerald-600 rounded-md text-center w-[40px]' min='0' max='2' type="number"/></td>
+          <td><input value={inputDesayuno} onChange={(e)=>setInputDesayuno(Number(e.target.value) > 2 ? 2 : Number(e.target.value))} className='border border-emerald-600 h-[35px] rounded-md text-center w-[40px]' min='0' max='2' type="number"/></td>
+          <td><input value={inputAlmuerzo} onChange={(e)=>setInputAlmuerzo(Number(e.target.value) > 2 ? 2 : Number(e.target.value))} className='border border-emerald-600 h-[35px] rounded-md text-center w-[40px]' min='0' max='2' type="number"/></td>
+          <td><input value={inputCena} onChange={(e)=>setInputCena(Number(e.target.value) > 2 ? 2 : Number(e.target.value))} className='border border-emerald-600 h-[35px] rounded-md text-center w-[40px]' min='0' max='2' type="number"/></td>
           <td colSpan='2'><button onClick={()=>handleEditar()} className='bg-green-300 px-2 rounded-md text-green-900 hover:bg-green-400' type='button'>Guardar</button></td>
         </tr>
       :

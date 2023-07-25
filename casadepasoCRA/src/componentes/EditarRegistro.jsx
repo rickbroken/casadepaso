@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ContextoUsuarios } from '../contextos/ContextoUsuarios';
+import React, { useEffect, useState } from 'react';
 import { format, fromUnixTime, getTime, parse } from 'date-fns';
-import { uid } from 'uid';
 import Alerta from '../elementos/Alerta';
 import TpDocumentos from '../elementos/TpDocumentos';
 import ContInputText from './ContInputText';

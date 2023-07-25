@@ -19,7 +19,7 @@ const useObtenerAlimentos = () => {
         
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
           setAlimentosUsuarios(snapshot.docs.map((registro)=>{
-            return registro.data();
+            return {...registro.data(), idDocFirebase: registro.id};
           }));
         });
         

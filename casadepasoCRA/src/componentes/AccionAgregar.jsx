@@ -223,7 +223,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
                   <FilaAlimentos 
                     alimentos={alimento.alimentos}
                     fechaAlimento={alimento.fechaAlimento}
-                    id={alimento.id}
+                    idDocFirebase={alimento.idDocFirebase}
                   />
                 ))
               }

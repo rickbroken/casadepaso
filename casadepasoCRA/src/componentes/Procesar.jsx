@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FilaUsuario from './FilaUsuario';
 import useObtenerRegistros from '../hooks/useObtenerRegistros';
 
