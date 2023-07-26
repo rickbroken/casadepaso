@@ -1,15 +1,17 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import { db } from './../firebase/firebaseConfig';
 import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { getTime, parse } from 'date-fns';
-//import convertirCSV from '../funciones/convertirCSV';
+import convertirCSV from '../funciones/convertirCSV';
+import OrdenarClavesObjetos from '../funciones/OrdenarClavesObjetos';
+import cambiarClaveObejtos from '../funciones/cambiarClavesObjetos';
 //import { useAuth } from '../contextos/AuthContext';
 
 
 
 const useObtenerRegistros = () => {
     const [registros, setRegistros] = useState([]);
-    //const [datosListos, setDatosListos] = useState(false);
+    const [datosListos, setDatosListos] = useState(false);
     //const {usuario} = useAuth()
     
     const [fechaInicio, setFechaInicio] = useState('');
@@ -43,19 +45,24 @@ const useObtenerRegistros = () => {
             setRegistros(snapshot.docs.map((registro)=>{
                 return {...registro.data(), idDocFirebase: registro.id}
             }));
-            //setDatosListos(true);
+            setDatosListos(true);
           });
 
         return unsuscribe;
     };
 
-    //useEffect(()=>{
-    //  if(datosListos){
-    //    convertirCSV(registros, 'Data');
-    //    setDatosListos(false);
-    //  }
-    //},[registros])
+    useEffect(()=>{
+      if(datosListos){
+      //Se renombrar de las claves de cada objeto para poder ordenar luego el objeto segun orden alfabetico
+      //de la A-Z, se eleiminan claves y valores que no se necesitan para exportar la inforamcion final}
+      //como tambien se combierte el arreglo de objetos resultantes a formato csv y queda descargado.
+      convertirCSV(OrdenarClavesObjetos(cambiarClaveObejtos(registros)), 'Data');
 
+      //Se restablece el valor de los datos listos para que no se descargue la informacion en cada cambio de cualquier estado
+      setDatosListos(false);
+    }
+  },[registros])
+  
     return {registros, handleConsultar, fechaInicio, setFechaInicio, fechaFin, setFechaFin, estadoUsuario, setEstadoUsuario};
 }
  
