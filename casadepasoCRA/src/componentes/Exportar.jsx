@@ -42,7 +42,7 @@ const Exportar = ({setMostrarProcesar}) => {
           onClick={handleConsultar}
           type='button'
         >
-          Buscar
+          Descargar
         </button>
       </div>
     </div>
