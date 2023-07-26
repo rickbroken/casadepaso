@@ -4,7 +4,6 @@ import Header from './componentes/Header';
 import { Route, Routes } from 'react-router-dom';
 import Ingresar from './componentes/Ingresar';
 import Procesar from './componentes/Procesar';
-import Exportar from './componentes/Exportar';
 
 WebFont.load({
   google: {
@@ -20,7 +19,6 @@ function App() {
       <Routes>
         <Route path='/' element={<Ingresar />} />
         <Route path='/procesar' element={<Procesar />} />
-        <Route path='/exportar' element={<Exportar />} />
         <Route path='/*' element={<Ingresar />} />
       </Routes>
 
