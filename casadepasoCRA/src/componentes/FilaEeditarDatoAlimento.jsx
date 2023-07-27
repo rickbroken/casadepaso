@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase/firebaseConfig';
-import { format, fromUnixTime } from 'date-fns';
+import { format, fromUnixTime, getDate, getMonth, getUnixTime, getYear, parse } from 'date-fns';
 
 const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoAcompanante,almuerzo,almuerzoAcompanante,cena,cenaAcompanante}) => {
   const [editarAlimento, setEditarAlimento] = useState(false);
@@ -11,6 +11,8 @@ const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoA
   const [inputAlmuerzo, setInputAlmuerzo] = useState(almuerzo + almuerzoAcompanante);
   const [inputCena, setInputCena] = useState(cena + cenaAcompanante);
 
+
+  
   const [alimentosNuevos, setAlimentosNuevos] = useState({
     alimentos: [{
       desayuno: '',
@@ -22,52 +24,59 @@ const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoA
     }]
   });
 
-
   
-
-
-  const definiAlimento = (nombreInput, nombreClavEstado, nombreClaveAcompananteEstado) => {
+  
+  
+  
+  const definiAlimento = (nombreInput, nombreClavEstado, nombreClaveAcompananteEstado, nombrePropClaveMatrix,fechaUnix) => {
+    let nombreClaveMatrix = nombrePropClaveMatrix;
     let nombreClave = nombreClavEstado;
     let nombreClaveAcompanante = nombreClaveAcompananteEstado;
     if(nombreInput === 2){
       setAlimentosNuevos((prev)=>({
-          alimentos: [{
-            ...prev.alimentos[0],
+        [nombreClaveMatrix]: {
+          ...prev[nombreClaveMatrix],
+            fechaAlimento: fechaUnix,
             [nombreClave]: 1,
             [nombreClaveAcompanante]: 1,
-          }]
+          }
         }
-      ));
-    } else if(nombreInput === 1){
-      setAlimentosNuevos((prev)=>({
-        alimentos: [{
-          ...prev.alimentos[0],
+        ));
+      } else if(nombreInput === 1){
+        setAlimentosNuevos((prev)=>({
+          [nombreClaveMatrix]: {
+          ...prev[nombreClaveMatrix],
+          fechaAlimento: fechaUnix,
           [nombreClave]: 1,
           [nombreClaveAcompanante]: 0,
-        }]
         }
+      }
        ));
-    } else {
-      setAlimentosNuevos((prev)=>({
-        alimentos: [{
-          ...prev.alimentos[0],
-          [nombreClave]: 0,
-          [nombreClaveAcompanante]: 0,
-        }]
+      } else {
+        setAlimentosNuevos((prev)=>({
+          [nombreClaveMatrix]: {
+          ...prev[nombreClaveMatrix],
+            fechaAlimento: fechaUnix,
+            [nombreClave]: 0,
+            [nombreClaveAcompanante]: 0,
+          }
       }
       ));
     }
   }
+  const [fechaConFormato,setFechaConFormato] =useState('');
+  const [fechaUnix, setFechaUnix] = useState('')
 
+  console.log(fechaConFormato);
+  
   useEffect(()=>{
-    definiAlimento(inputDesayuno,'desayuno','desayunoAcompanante');
-    definiAlimento(inputAlmuerzo,'almuerzo','almuerzoAcompanante');
-    definiAlimento(inputCena,'cena','cenaAcompanante');
+    definiAlimento(inputDesayuno,'desayuno','desayunoAcompanante',fechaConFormato,fechaUnix);
+    definiAlimento(inputAlmuerzo,'almuerzo','almuerzoAcompanante',fechaConFormato,fechaUnix);
+    definiAlimento(inputCena,'cena','cenaAcompanante',fechaConFormato,fechaUnix);
   },[inputDesayuno,inputAlmuerzo,inputCena]);
-
+  
 
   const handleEditar = async() => {
-    console.log(alimentosNuevos);
     setEditarAlimento(false);
     try {
       await updateDoc(doc(db, 'Alimentos', idDocFirebase), alimentosNuevos)
@@ -75,6 +84,14 @@ const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoA
       console.log(error);
     }
   }
+  const handleEditarIcon = (fechaAlimento) => {
+    console.log(parse(fechaAlimento, 'dd/MM/yyyy', new Date()) * 100)
+    setFechaUnix(parse(fechaAlimento, 'dd/MM/yyyy', new Date()) * 100)
+    setEditarAlimento(true);
+    setFechaConFormato(fechaAlimento.replace(/\//g, ''));
+  }
+
+  
 
   return (
     <>
@@ -93,7 +110,7 @@ const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoA
           <td>{almuerzo + almuerzoAcompanante}</td>
           <td>{cena + cenaAcompanante}</td>
           <td>{desayuno + desayunoAcompanante + almuerzo + almuerzoAcompanante + cena + cenaAcompanante}</td>
-          <td><Icon onClick={()=>setEditarAlimento(true)} icon="clarity:note-edit-line" color="#095c51" width='25'/></td>
+          <td><Icon onClick={()=>handleEditarIcon(fechaAlimento)} icon="clarity:note-edit-line" color="#095c51" width='25'/></td>
         </tr>
       }
     </>

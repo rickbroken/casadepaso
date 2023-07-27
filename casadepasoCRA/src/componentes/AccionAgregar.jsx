@@ -50,12 +50,11 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
     setFechaIngresarAlimento('');
   }
 
-  const fecha = new Date();
   const diaMesInput = getDate(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()));
   const mesAnioInput = getMonth(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date())) + 1;
   const AnioInput = getYear(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()));
 
-  const clavleFechaAlimento = `${diaMesInput}${mesAnioInput > 9 ? mesAnioInput : '0'+mesAnioInput}${AnioInput}`;
+  const claveFechaAlimento = `${diaMesInput > 9 ? diaMesInput : '0'+diaMesInput}${mesAnioInput > 9 ? mesAnioInput : '0'+mesAnioInput}${AnioInput}`;
 
 
   useEffect(()=>{
@@ -64,7 +63,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
       alimentosUsuarios.map((alimentoUsuario)=>{
         setAlimentos({
           idDocFirebase: alimentoUsuario.idDocFirebase,
-          [clavleFechaAlimento]: {
+          [claveFechaAlimento]: {
             fechaAlimento: fechaUnixIngresoAliemto,
             desayuno: desayuno,
             almuerzo: almuerzo,

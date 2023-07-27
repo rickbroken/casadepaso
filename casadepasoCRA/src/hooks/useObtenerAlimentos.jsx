@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { db } from './../firebase/firebaseConfig';
-import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 //import { useAuth } from '../contextos/AuthContext';
 
 
@@ -14,7 +14,6 @@ const useObtenerAlimentos = () => {
       const consulta = query(
         collection(db, 'Alimentos'),
         where('id', '==', idRegistro)
-        //orderBy('fechaAlimento', 'desc')
         );
         
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
