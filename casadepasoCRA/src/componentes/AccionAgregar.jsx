@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react';
 import React, { useEffect, useState } from 'react';
-import { format, getTime, parse } from 'date-fns';
+import { format, getDate, getMonth, getTime, getYear, parse } from 'date-fns';
 import agregarAlimentos from './../firebase/agregarAlimentos';
 import Alerta from '../elementos/Alerta';
 import finalizarEstadoRegistro from '../firebase/finalizarEstadoRegistro';
@@ -50,21 +50,35 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
     setFechaIngresarAlimento('');
   }
 
+  const fecha = new Date();
+  const diaMesInput = getDate(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()));
+  const mesAnioInput = getMonth(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date())) + 1;
+  const AnioInput = getYear(parse(fechaIngresarAlimento, 'yyyy-MM-dd', new Date()));
+
+  const clavleFechaAlimento = `${diaMesInput}${mesAnioInput > 9 ? mesAnioInput : '0'+mesAnioInput}${AnioInput}`;
+
+  console.log(clavleFechaAlimento);
+
   useEffect(()=>{
+    //console.log(alimentosUsuarios);
     setIdRegistro(id);
-    setAlimentos({
-      id: id,
-      fechaAlimento: fechaUnixIngresoAliemto,
-      alimentos: [{
-        desayuno: desayuno,
-        almuerzo: almuerzo,
-        cena: cena,
-        desayunoAcompanante: desayunoAcompanante,
-        almuerzoAcompanante: almuerzoAcompanante,
-        cenaAcompanante: cenaAcompanante
-      }]
-    });
-  },[desayuno,almuerzo,cena,desayunoAcompanante,almuerzoAcompanante,cenaAcompanante,acompanante,id,fechaIngresarAlimento,setFechaIngresarAlimento])
+    if(alimentosUsuarios.length !== 0){
+      alimentosUsuarios.map((alimentoUsuario)=>{
+        setAlimentos({
+          idDocFirebase: alimentoUsuario.idDocFirebase,
+          [clavleFechaAlimento]: {
+            fechaAlimento: fechaUnixIngresoAliemto,
+            desayuno: desayuno,
+            almuerzo: almuerzo,
+            cena: cena,
+            desayunoAcompanante: desayunoAcompanante,
+            almuerzoAcompanante: almuerzoAcompanante,
+            cenaAcompanante: cenaAcompanante
+          }
+        });
+      })
+    }
+  },[alimentosUsuarios,desayuno,almuerzo,cena,desayunoAcompanante,almuerzoAcompanante,cenaAcompanante,acompanante,id,fechaIngresarAlimento,setFechaIngresarAlimento])
 
 
   const [fechaSalida, setFechaSalida] = useState('');
@@ -85,7 +99,6 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
     }
   }
 
-
   const handleAgregarAlimentos = () => {
     if(fechaIngresarAlimento === '' || fechaIngresarAlimento === null || fechaIngresarAlimento === undefined){
       definirAlerta('Ingresa una fecha valida de suministro de alimento', 'error');
@@ -97,8 +110,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
       }
   
       if(alimentosUsuarios.length === 0){
-        agregarAlimentos(alimentos);
-          console.log('Ingresado')
+        agregarAlimentos(alimentos, alimentos.idDocFirebase);
     
           definirAlerta('Alimentos Agregados', 'true');
     
@@ -122,7 +134,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
 
       try {
         //llamamos funcion para agregar alimentos a firebase cloud
-        agregarAlimentos(alimentos);
+        agregarAlimentos(alimentos, alimentos.idDocFirebase);
   
   
         definirAlerta('Alimentos Agregados', 'true');
@@ -218,7 +230,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
               </tr>
             </thead>
             <tbody>
-              {alimentosUsuarios &&
+              {/*alimentosUsuarios &&
                 alimentosUsuarios.map((alimento)=>(
                   <FilaAlimentos 
                     alimentos={alimento.alimentos}
@@ -226,7 +238,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
                     idDocFirebase={alimento.idDocFirebase}
                   />
                 ))
-              }
+                */}
             </tbody>
           </table>
         </div>

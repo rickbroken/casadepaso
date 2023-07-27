@@ -19,7 +19,6 @@ const cambiarClaveObejtos = (arregloObjetos,) => {
 
   const formateandoFecha = (objeto, clave) => {
     const fechaIngreso = objeto[clave];
-    console.log(fechaIngreso);
     const fechaformateada = format(fromUnixTime(fechaIngreso) / 1000, 'dd/MM/yyyy');
     return fechaformateada;
   }

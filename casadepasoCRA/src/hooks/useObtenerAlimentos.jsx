@@ -13,8 +13,8 @@ const useObtenerAlimentos = () => {
     const handleBuscarAlimentos = ()=>{
       const consulta = query(
         collection(db, 'Alimentos'),
-        where('id', '==', idRegistro),
-        orderBy('fechaAlimento', 'desc')
+        where('id', '==', idRegistro)
+        //orderBy('fechaAlimento', 'desc')
         );
         
         const unsuscribe = onSnapshot(consulta, (snapshot) => {
@@ -25,7 +25,6 @@ const useObtenerAlimentos = () => {
         
         return unsuscribe;
       };
-      
 
     return {alimentosUsuarios,handleBuscarAlimentos,setIdRegistro,idRegistro};
 }

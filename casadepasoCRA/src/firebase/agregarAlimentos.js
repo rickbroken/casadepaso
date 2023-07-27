@@ -1,8 +1,8 @@
-import { collection, addDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import {db} from './firebaseConfig';
 
-const agregarAlimentos = (alimentos) => {
-  addDoc(collection(db, "Alimentos"),alimentos)
+const agregarAlimentos = (nuevosDatos,idDocFirebase) => {
+  updateDoc(doc(db, 'Alimentos', idDocFirebase), nuevosDatos)
 }
  
 export default agregarAlimentos;
