@@ -57,10 +57,8 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
 
   const clavleFechaAlimento = `${diaMesInput}${mesAnioInput > 9 ? mesAnioInput : '0'+mesAnioInput}${AnioInput}`;
 
-  console.log(clavleFechaAlimento);
 
   useEffect(()=>{
-    //console.log(alimentosUsuarios);
     setIdRegistro(id);
     if(alimentosUsuarios.length !== 0){
       alimentosUsuarios.map((alimentoUsuario)=>{
@@ -230,15 +228,13 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
               </tr>
             </thead>
             <tbody>
-              {/*alimentosUsuarios &&
+              {alimentosUsuarios.length !== 0 &&
                 alimentosUsuarios.map((alimento)=>(
                   <FilaAlimentos 
-                    alimentos={alimento.alimentos}
-                    fechaAlimento={alimento.fechaAlimento}
-                    idDocFirebase={alimento.idDocFirebase}
+                    alimentos={alimento}
                   />
                 ))
-                */}
+                }
             </tbody>
           </table>
         </div>
