@@ -145,7 +145,9 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
   }
 
   useEffect(()=>{
-    handleBuscarAlimentos();
+    if(idRegistro){
+      handleBuscarAlimentos();
+    }
   },[idRegistro])
 
 
