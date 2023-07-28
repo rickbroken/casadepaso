@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../firebase/firebaseConfig';
 import { format, fromUnixTime } from 'date-fns';
 import FilaEeditarDatoAlimento from './FilaEeditarDatoAlimento';
+import { uid } from 'uid';
 
 const FilaEditarAlimento = ({alimentos,idDocFirebase}) => {
   console.log(alimentos);
@@ -14,6 +15,7 @@ const FilaEditarAlimento = ({alimentos,idDocFirebase}) => {
         alimentos.length !== 0 &&
         alimentos.map((item) => (
           <FilaEeditarDatoAlimento
+            key={uid(7)}
             idDocFirebase={idDocFirebase}
             fechaAlimento={format(fromUnixTime(item.fechaAlimento) / 1000, 'dd/MM/yyyy')}
             desayuno={item.desayuno}

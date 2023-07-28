@@ -2,7 +2,8 @@ import { Icon } from '@iconify/react';
 import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase/firebaseConfig';
-import { format, fromUnixTime, getDate, getMonth, getUnixTime, getYear, parse } from 'date-fns';
+import { getTime, parse } from 'date-fns';
+import { uid } from 'uid';
 
 const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoAcompanante,almuerzo,almuerzoAcompanante,cena,cenaAcompanante}) => {
   const [editarAlimento, setEditarAlimento] = useState(false);
@@ -67,7 +68,7 @@ const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoA
   const [fechaConFormato,setFechaConFormato] =useState('');
   const [fechaUnix, setFechaUnix] = useState('')
 
-  console.log(fechaConFormato);
+  //console.log(fechaConFormato);
   
   useEffect(()=>{
     definiAlimento(inputDesayuno,'desayuno','desayunoAcompanante',fechaConFormato,fechaUnix);
@@ -85,8 +86,9 @@ const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoA
     }
   }
   const handleEditarIcon = (fechaAlimento) => {
-    console.log(parse(fechaAlimento, 'dd/MM/yyyy', new Date()) * 100)
-    setFechaUnix(parse(fechaAlimento, 'dd/MM/yyyy', new Date()) * 100)
+    console.log(fechaAlimento);
+    console.log(getTime(parse(fechaAlimento, 'dd/MM/yyyy', new Date())));
+    setFechaUnix(getTime(parse(fechaAlimento, 'dd/MM/yyyy', new Date())));
     setEditarAlimento(true);
     setFechaConFormato(fechaAlimento.replace(/\//g, ''));
   }
@@ -96,7 +98,7 @@ const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoA
   return (
     <>
       {editarAlimento ?
-        <tr key={fechaAlimento}>
+        <tr key={uid(7)}>
           <td className='w-[220px]'>{fechaAlimento}</td>
           <td><input value={inputDesayuno} onChange={(e)=>setInputDesayuno(Number(e.target.value) > 2 ? 2 : Number(e.target.value))} className='border border-emerald-600 h-[35px] rounded-md text-center w-[40px]' min='0' max='2' type="number"/></td>
           <td><input value={inputAlmuerzo} onChange={(e)=>setInputAlmuerzo(Number(e.target.value) > 2 ? 2 : Number(e.target.value))} className='border border-emerald-600 h-[35px] rounded-md text-center w-[40px]' min='0' max='2' type="number"/></td>
@@ -104,7 +106,7 @@ const FilaEeditarDatoAlimento = ({fechaAlimento,idDocFirebase,desayuno,desayunoA
           <td colSpan='2'><button onClick={()=>handleEditar()} className='bg-green-300 px-2 rounded-md text-green-900 hover:bg-green-400' type='button'>Guardar</button></td>
         </tr>
       :
-        <tr key={fechaAlimento}>
+        <tr key={uid(7)}>
           <td>{fechaAlimento}</td>
           <td>{desayuno + desayunoAcompanante}</td>
           <td>{almuerzo + almuerzoAcompanante}</td>

@@ -6,6 +6,7 @@ import Alerta from '../elementos/Alerta';
 import finalizarEstadoRegistro from '../firebase/finalizarEstadoRegistro';
 import useObtenerAlimentos from '../hooks/useObtenerAlimentos';
 import FilaAlimentos from './FilaAlimentos';
+import { uid } from 'uid';
 
 
 
@@ -230,6 +231,7 @@ const AccionAgregar = ({setMostrarAccionAgregar,id,idDocFirebase,fechaIngreso,pr
               {alimentosUsuarios.length !== 0 &&
                 alimentosUsuarios.map((alimento)=>(
                   <FilaAlimentos 
+                    key={uid(7)}
                     alimentos={alimento}
                   />
                 ))
