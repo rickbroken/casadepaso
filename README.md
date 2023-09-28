@@ -9,5 +9,9 @@ Desarrollé una aplicación web dedicada a hospedajes de paso sin ánimo de lucr
 4. Ejecutar en la consola de comandos `npm install`
 5. Listo para correr el proyecto NO tienes que crear Colecciones en fibare ya que se crean automaticamente a medida que se va interactuando con la aplicacion web.
 
+
 Si quieres ver mas proyectos como este, puedes ir a mi portafolio de proyectos: [Portafolio RickBroken](<https://www.rickbroken.com/>)
+
 Sigueme en linkedin para mas contenido como este! : [Linkedin RickBroken](<https://www.linkedin.com/in/ricardo-quebrada-815171213/>)
+
+Demo del proyecto: <https://www.rickbroken.com/casadepaso/>
