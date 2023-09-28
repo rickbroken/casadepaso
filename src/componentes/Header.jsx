@@ -10,8 +10,8 @@ const Header = () => {
     <div className='w-full h-16 bg-primario flex justify-between items-center px-6'>
 
       <div>
-        <p className='font-[800] text-2xl text-white'>PIJAOS SALUD EPSI</p>
-        <p className='text-sm'>Puerto Gaitan - Meta</p>
+        <p className='font-[800] text-2xl text-white'>HOSPEDAJE DE PASO</p>
+        <p className='text-sm'>Organizacion - Sin animo de lucro</p>
       </div>
 
       <div className='text-white'>
