@@ -4,15 +4,15 @@ const MotivoAlojamiento = () => {
   return (
     <>
       <option value="">Seleccione una opcion</option>
-      <option value="CONSULTA EXTERNA">CONSULTA EXTERNA</option>
-      <option value="CITA ESPECIALIDADES">CITA ESPECIALIDADES</option>
-      <option value="SEGUIMIENTOS PYP">SEGUIMIENTOS PYP</option>
-      <option value="FPP">FPP</option>
-      <option value="DESNUTRICION">DESNUTRICION</option>
+      <option value="REFUGIADOS">REFUGIADOS</option>
+      <option value="VIAJERO DE TRANSITO">VIAJERO DE TRANSITO</option>
+      <option value="DESASTRE NATURAL">DESASTRE NATURAL</option>
+      <option value="BUSQUEDA EMPLEO">BUSQUEDA EMPLEO</option>
+      <option value="REAHBILITACION">REAHBILITACION</option>
       <option value="SALUD PUBLICA">SALUD PUBLICA</option>
-      <option value="ATENCION PRIORITARIA">ATENCION PRIORITARIA</option>
-      <option value="LABORATORIOS">LABORATORIOS</option>
-      <option value="POST-PARTO">POST-PARTO</option>
+      <option value="INMIGRANTES NUEVOS">INMIGRANTES NUEVOS</option>
+      <option value="EMERGENCIA MEDICA">EMERGENCIA MEDICA</option>
+      <option value="SIN TECHO">SIN TECHO</option>
     </>
   );
 }
